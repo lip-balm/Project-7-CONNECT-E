@@ -7,6 +7,9 @@
   <router-view/>
 </template>
 
+
+// protected views and routes or maybe hide nav based on log in
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
