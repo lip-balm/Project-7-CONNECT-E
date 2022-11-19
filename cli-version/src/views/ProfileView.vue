@@ -1,5 +1,18 @@
 <template>
-  <div class="profile">
-    <h1>Welcome to your profile!</h1>
+  <div id="profile">
+    <MyProfile msg="Welcome to your profile!"/>
+    
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import MyProfile from '@/components/MyProfile.vue'
+
+export default {
+  name: 'ProfileView',
+  components: {
+    MyProfile
+  }
+}
+</script>
