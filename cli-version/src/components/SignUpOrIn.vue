@@ -35,11 +35,15 @@ label {
 }
 
 button {
-    margin: 10px;
-    padding: 5px 10px;
+    margin: 12px;
+    padding: 13px 10px 10px;
     color: #fd2d01;
     border-color: #fd2d01;
-    border-radius: 20px;
-    border-width: 3px;
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    border: none;
+    border-width: 5px;
+    background-color: #fcd4d2;
 }
 </style>
