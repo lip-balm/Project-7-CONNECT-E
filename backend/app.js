@@ -1,8 +1,13 @@
 const express = require('express');
-
 const app = express();
+const bodyParser= require('body-parser');
+
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+
 
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,32 +19,8 @@ app.use((req, res, next) => {
 app.use((req, res) => {
     res.json({ message: 'Your request was successful!' }); 
 });
-  
-// app.post('/api/stuff', (req, res, next) => {
-//     console.log(req.body);
-//     res.status(201).json({
-//       message: 'Thing created successfully!'
-//     });
-// });
-
-// app.get('/home', (req, res, next) => {
-//     const stuff = [
-//       {
-//         _id: 'oeihfzeoi',
-//         name: 'My first thing',
-//         description: 'All of the info about my first thing',
-//         imageUrl: '',
-//         userId: 'qsomihvqios',
-//       },
-//       {
-//         _id: 'oeihfzeomoihi',
-//         title: 'My second thing',
-//         description: 'All of the info about my second thing',
-//         imageUrl: '',
-//         userId: 'qsomihvqios',
-//       },
-//     ];
-//     res.status(200).json(stuff);
-//   });
+ 
+app.use('/', userRoutes);
+app.use('/forum', postRoutes);
 
 module.exports = app;
