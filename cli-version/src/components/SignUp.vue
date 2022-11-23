@@ -2,9 +2,11 @@
   <div id="account">
     <h2>{{ msg }}</h2>
         <form>
-            <label>Email <input type="email"></label>
-            <label>Password <input type="password" placeholder="keep this a secret"></label>
-            <button type="submit">Sign In</button>
+            <label>Employee ID <input type="number" min="100000" max="999999" required placeholder="this would be your 6 digit employee ID"></label>
+            <label>Password <input type="password" required placeholder="set it and don't forget it"></label>
+            <label>Name <input type="text" required placeholder="this will be your display name"></label>
+            <label>Bio <input type="text" placeholder="this is optional but recommended"></label>
+            <label> Image (optional)<input type="file"></label>
             <button type="submit">Sign Up</button>
         </form>
   </div>
@@ -12,7 +14,7 @@
 
 <script>
 export default {
-  name: 'SignUpOrIn',
+  name: 'SignUp',
   props: {
     msg: String
   }
@@ -32,6 +34,10 @@ label {
     flex-direction: vertical;
     gap: 10px;
     padding: 10px;
+}
+
+input {
+  width: 250px;
 }
 
 button {

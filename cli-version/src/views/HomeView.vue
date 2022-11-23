@@ -3,20 +3,23 @@
     <img alt="Groupomania logo" src="../assets/images/icon-above-font.png">
     <AboutUs msg="Welcome to the Groupomania employee forum, where you can connect with those around you."/>
     <h1>Find company in your company.</h1>
-    <SignUpOrIn msg="We'll make this easy. 1. Fill in the below. 2. Either sign in or up for an account with the inputted details."/>
+    <SignUp msg="We'll make this easy. Don't have an account? Fill in the below to sign up."/> 
+    <SignIn msg="Already a member? Sign in below."/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import AboutUs from '@/components/AboutUs.vue'
-import SignUpOrIn from '@/components/SignUpOrIn.vue'
+import SignUp from '@/components/SignUp.vue'
+import SignIn from '@/components/SignIn.vue'
 
 export default {
   name: 'HomeView',
   components: {
     AboutUs,
-    SignUpOrIn
+    SignUp,
+    SignIn
   }
 }
 </script>
