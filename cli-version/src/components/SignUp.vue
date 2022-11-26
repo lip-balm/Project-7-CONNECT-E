@@ -1,25 +1,59 @@
 <template>
   <div id="account">
     <h2>{{ msg }}</h2>
-        <form>
-            <label>Employee ID <input type="number" min="100000" max="999999" required placeholder="this would be your 6 digit employee ID"></label>
-            <label>Password <input type="password" required placeholder="set it and don't forget it"></label>
-            <label>Name <input type="text" required placeholder="this will be your display name"></label>
-            <label>Bio <input type="text" placeholder="this is optional but recommended"></label>
-            <label> Image (optional)<input type="file"></label>
-            <button type="submit">Sign Up</button>
-        </form>
+        <div>
+            <label>Employee ID <input class="textbox" type="number" min="100000" max="999999" required placeholder="this would be your 6 digit employee ID"></label>
+            <label>Password <input class="textbox" type="password" required placeholder="set it and don't forget it"></label>
+            <label>Name <input class="textbox" type="text" required placeholder="this will be your display name"></label>
+            <label>Bio <input class="textbox" type="text" placeholder="this is optional but recommended"></label>
+            <label> Image <br> (optional)<input type="file"></label>
+            <button @click="usersignup">Sign Up</button>
+        </div>
   </div>
 </template>
 
+
 <script>
 export default {
-  name: 'SignUp',
-  props: {
+    name: 'SignUp',
+    props: {
     msg: String
-  }
+  },
+  data() {
+    return {
+      userData: {
+        employeeID: '',
+        password: '',
+        name: '',
+        bio: '',
+        img: '',
+      }
+    }
+  },
+  methods: {
+    usersignup: function() {
+      fetch('http://localhost:3000/api/auth/signup', {
+        method: 'POST',
+        headers:{"Content-type":"application/json"},
+        body: JSON.stringify({
+          employeeID: this.employeeID,
+          password: this.password,
+          name:  this.name,
+          bio: this.bio,
+        })
+      })
+           .then(response => response.json())
+           .then(json => {
+             this.data = json.data;
+           })
+           .catch(error => {
+             this.error = error;
+          });
+    },
+}
 }
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
@@ -36,7 +70,7 @@ label {
     padding: 10px;
 }
 
-input {
+.textbox {
   width: 250px;
 }
 

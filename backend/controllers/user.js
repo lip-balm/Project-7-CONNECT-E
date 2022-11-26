@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 
 exports.signup = (req, res, next) => {
     console.log(req);
-    req.body.user = JSON.parse(req.body.user);
+    // req.body.user = JSON.parse(req.body.user);
     console.log(req.body)
     const employeeIDCheck = `SELECT * FROM users WHERE employeeID = '${req.body.email}'`;
     const userInsert = "INSERT INTO users (employee ID, name, password, bio) VALUES ('${req.body.employeeID}', '${hash}', '${req.body.name}', '${req.body.bio}')";
@@ -18,8 +18,10 @@ exports.signup = (req, res, next) => {
             if (result.length === 1) {
                 return res.status(400).json({ error: "An account already exists for this employee ID!" });
             } else {
-                bcrypt.hash(req.body.password, 10).then(
-                (hash) => {
+                bcrypt.hash(req.body.password, 10, function(err, hash) {
+                    if (err) {
+                        return next(err);
+                        }
                     const user = new User({
                         employeeID: req.body.employeeID,
                         password: hash,
@@ -74,3 +76,10 @@ exports.signup = (req, res, next) => {
 //       .catch((error) => res.status(500).json({ error }));
 // }})
 // };
+
+// user
+//             .save(user)
+//             .then(data => {
+//                 res.redirect('/signup')
+                
+//             })
