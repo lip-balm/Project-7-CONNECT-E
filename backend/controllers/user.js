@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 
 exports.signup = (req, res, next) => {
     console.log(req);
-    // req.body.user = JSON.parse(req.body.user);
+    // req.body.user = JSON.parse(req.body.user); giving error
     console.log(req.body)
     const employeeIDCheck = `SELECT * FROM users WHERE employeeID = '${req.body.email}'`;
     const userInsert = "INSERT INTO users (employee ID, name, password, bio) VALUES ('${req.body.employeeID}', '${hash}', '${req.body.name}', '${req.body.bio}')";
