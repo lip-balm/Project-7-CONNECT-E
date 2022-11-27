@@ -19,14 +19,13 @@ export default {
     props: {
     msg: String
   },
-  data() {
+    data() {
     return {
-      userData: {
+      userInfo: {
         employeeID: '',
         password: '',
         name: '',
         bio: '',
-        img: '',
       }
     }
   },
@@ -44,7 +43,7 @@ export default {
       })
            .then(response => response.json())
            .then(json => {
-             this.data = json.data;
+             this.userInfo = json.data;
            })
            .catch(error => {
              this.error = error;
