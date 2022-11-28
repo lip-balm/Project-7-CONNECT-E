@@ -29,8 +29,8 @@ app.get("/", (req, res) => {
     res.send("Hello");
 });
   
-app.get("/:universalURL", (req, res) => {
-    res.send("404 URL NOT FOUND");
-});
+// app.get("/:universalURL", (req, res) => {
+//     res.send("404 URL NOT FOUND");
+// });
 
 module.exports = app;

@@ -1,14 +1,12 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const database = require('../database');
-const mysql = require("mysql2");
+const database = require('../database').database;
 // const fs = require('fs');
 
 exports.signup = (req, res, next) => {
-    console.log(req);
-    // req.body.user = JSON.parse(req.body.user); giving error
-    console.log(req.body)
+    console.log(req.body);
+
     const employeeIDCheck = `SELECT * FROM users WHERE employeeID = '${req.body.email}'`;
     const userInsert = "INSERT INTO users (employee ID, name, password, bio) VALUES ('${req.body.employeeID}', '${hash}', '${req.body.name}', '${req.body.bio}')";
     // const userInsert = `INSERT INTO users (employeeID, password, name, bio) VALUES ('${req.body.employeeID}', '${hash}', '${req.body.name}', '${req.body.bio}')`;
@@ -29,7 +27,6 @@ exports.signup = (req, res, next) => {
                         bio: req.body.bio,
                         //   img: url + '/images/' + req.file.filename,
                     });
-                    console.log(user);
                     database.query(userInsert, function (err, result) {
                         if (err)
                         throw err;
@@ -49,11 +46,9 @@ exports.signup = (req, res, next) => {
             }}
 )}
 
-// exports.signup = (req, res) => {
+// exports.signup = (req, res, next) => {
 //     console.log(req.body);
 //     const { employeeID, password, name, bio } = req.body;
-//     req.body.user = JSON.parse(req.body.user);
-
 
 //     const employeeIDCheck = `SELECT * FROM users WHERE employeeID = req.body.employeeID`;
 //     database.query(employeeIDCheck, (err, result) => {
