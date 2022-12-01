@@ -1,4 +1,4 @@
-// to see mysql database mac terminal /usr/local/mysql/bin/mysql -u root -p
+// to see mysql database /usr/local/mysql/bin/mysql -u root -p
 
 const mysql = require('mysql2');
 

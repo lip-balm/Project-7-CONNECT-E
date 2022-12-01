@@ -2,9 +2,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const database = require('../database');
-// const fs = require('fs');
+const fs = require('fs');
 
-exports.signup = (req, res, next) => {
+exports.signUp = (req, res, next) => {
     console.log(req.body);
     const employeeIDCheck = `SELECT * FROM users WHERE employeeID = '${req.body.employeeID}'`;
         database.query(employeeIDCheck, function (err, result) {
@@ -30,7 +30,7 @@ exports.signup = (req, res, next) => {
             }}
 )};
 
-exports.signin = (req, res, next) => {
+exports.signIn = (req, res, next) => {
     console.log(req.body);
     const employeeIDCheck = `SELECT * FROM users WHERE employeeID = '${req.body.employeeID}'`; 
         database.query(employeeIDCheck, function (err, result) {
@@ -66,3 +66,26 @@ exports.signin = (req, res, next) => {
         //         }
         //   );
         }
+
+exports.getProfile = (req, res, next) => {
+    console.log(req.body);
+    const employeeIDCheck = `SELECT * FROM users WHERE employeeID = '${req.body.employeeID}'`;
+        database.query(employeeIDCheck, function (err, result) {
+            if (err) throw err;
+            if (result.length === 1) {
+
+
+                
+      }}).then(
+        (sauce) => {
+          res.status(200).json(sauce);
+        }
+      )
+    //   .catch(
+    //     (error) => {
+    //       res.status(404).json({
+    //         error: error
+    //       });
+    //     }
+    //   );
+};
