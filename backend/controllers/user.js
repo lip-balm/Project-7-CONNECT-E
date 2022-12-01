@@ -41,23 +41,26 @@ exports.signIn = (req, res, next) => {
             if (result.length < 1) {
                 return res.status(400).json({ error: "An account does not exist for this employee ID, please sign up for an account above." });
             } else {
-            bcrypt.compare(req.body.password, result.password).then(
+            console.log(req, req.body.password);
+            console.log(result, result[0].password);
+            bcrypt.compare(req.body.password, result[0].password).then(
                 (valid) => {
+                    console.log(valid);
                 if (!valid) {
                     return res.status(401).json({error: "Please check your password!"});
                     }});
-                }
+                } else {
                 const token = jwt.sign(
                     { employeeID: req.body.employeeID },
                     'RANDOM_TOKEN',
                     { expiresIn: '24h' });
                     console.log(token);
-                res.status(200).json({
+                return res.status(200).json({
                     employeeID: req.body.employeeID,
                     token: token
                 })
                 }
-            )
+            }
         //     .catch(
         //         (error) => {
         //         res.status(500).json({
