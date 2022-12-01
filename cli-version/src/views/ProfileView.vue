@@ -1,7 +1,6 @@
 <template>
   <div id="profile">
-    <MyProfile msg="Welcome to your profile!"/>
-    
+    <MyProfile msg="Welcome to your profile!"/>    
   </div>
 </template>
 
@@ -12,7 +11,7 @@ import MyProfile from '@/components/MyProfile.vue'
 export default {
   name: 'ProfileView',
   components: {
-    MyProfile
+    MyProfile,
   }
 }
 </script>

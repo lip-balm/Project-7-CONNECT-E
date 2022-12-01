@@ -1,11 +1,11 @@
 <template>
   <div id="account">
     <h2>{{ msg }}</h2>
-        <form>
-            <label>Email <input type="email"></label>
-            <label>Password <input type="password" placeholder="keep this a secret"></label>
-            <button type="submit">Sign In</button>
-        </form>
+        <div>
+            <label>Employee ID <input class="textbox" type="number" min="100000" max="999999" v-model="employeeID" required></label>
+            <label>Password <input class="textbox" type="password" v-model="password" required></label>
+            <button @click="usersignin">Sign In</button>
+        </div>
   </div>
 </template>
 
@@ -14,7 +14,33 @@ export default {
   name: 'SignIn',
   props: {
     msg: String
-  }
+  },
+  data() {
+    return {
+      userInfo: {
+        employeeID: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    usersignin: function() {
+      fetch('http://localhost:3000/api/auth/signin', {
+        method: 'POST',
+        headers:{ 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          employeeID: this.employeeID,
+          password: this.password,
+        })
+      })
+           .then(response => response.json())
+           .then(data => console.log(data))
+           .then(json => {this.userInfo = json.data})
+           .catch(error => {
+             this.error = error;
+          });
+    },
+}
 }
 </script>
 

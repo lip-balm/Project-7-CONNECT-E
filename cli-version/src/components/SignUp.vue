@@ -3,7 +3,7 @@
     <h2>{{ msg }}</h2>
         <div>
             <label>Employee ID <input class="textbox" type="number" min="100000" max="999999" v-model="employeeID" required placeholder="this would be your 6 digit employee ID"></label>
-            <label>Password <input class="textbox" type="password" v-model="password" required placeholder="set it and don't forget it"></label>
+            <label>Password <input class="textbox" type="password" v-model="password" required></label>
             <label>Name <input class="textbox" type="text" v-model="name" required placeholder="this will be your display name"></label>
             <label>Bio <input class="textbox" type="text" v-model="bio" placeholder="this is optional but recommended"></label>
             <label> Image <br> (optional)<input type="file"></label>
@@ -63,7 +63,6 @@ export default {
 label {
     display: flex;
     justify-content: center;
-    flex-direction: vertical;
     gap: 10px;
     padding: 10px;
 }
