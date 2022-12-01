@@ -6,7 +6,7 @@ const bodyParser= require('body-parser');
 
 router.use(bodyParser.json());
 
-router.post('/signup', userController.signup);
-router.post('/signin', userController.signin);
+router.post('/signup', auth, userController.signup);
+router.post('/signin', auth, userController.signin);
 
 module.exports = router;
