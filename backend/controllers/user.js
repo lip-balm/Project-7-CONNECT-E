@@ -55,7 +55,6 @@ exports.signIn = (req, res, next) => {
                     'RANDOM_TOKEN',
                     { expiresIn: '24h' });
                     console.log(token);
-                // res.redirect(200, 'http://localhost:8080/forum');
                 return res.status(200).json({
                     employeeID: req.body.employeeID,
                     token: token

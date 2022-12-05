@@ -30,26 +30,30 @@
 
 
 
-// for profile
 // methods: {
 //     userprofile: function() {
-//       fetch('http://localhost:3000/api/auth/profile' + this.employeeID, {
-//         method: 'GET',
-//         headers:{ 'Content-Type': 'application/json' },
-//         body: JSON.stringify({
-//           employeeID: this.employeeID,
-//           name:  this.name,
-//           bio: this.bio,
+//         fetch('http://localhost:3000/api/auth/profile' + this.employeeID, {
+//           method: 'GET',
+//           headers:{ 'Content-Type': 'application/json' },
+//           body: JSON.stringify({
+//             employeeID: this.employeeID,
+//             name:  this.name,
+//             bio: this.bio,
+//           })
 //         })
-//       })
-//            .then(response => response.json())
-//            .then(data => console.log(data))
-//            .then(json => {this.userInfo = json.data})
-//            .catch(error => {
-//              this.error = error;
-//           });
-//     },
-
+//              .then(response => response.json())
+//              .then(data => console.log(data))
+//              .then(json => {this.userInfo = json.data})
+//              .catch(error => {
+//                this.error = error;
+//             });
+//             }
+//       },
+  
+//   created: function(){
+//           this.userprofile()
+//       }
+  
 
 // mounted() {
 //     axios.get('http://localhost:3000/api/auth/profile/:employeeID', {

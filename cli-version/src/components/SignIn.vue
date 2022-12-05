@@ -36,17 +36,24 @@ export default {
       })
            .then(response => { response.json();
            if (response.status == 200) {
-            this.$router.push({ name: 'forum' });
+            this.$router.push({ name: 'profile' });
            }
            })
            .then(data => console.log(data))
-           .then(json => {this.userInfo = json.data})
+           .then(json => {this.userInfo = json.data
+           console.log(json.data)
+            localStorage.setItem('token', json.data.token)
+           })
            .catch(error => {
              this.error = error;
           });
     },
 }
 }
+
+employeeid needs to fetched from somewhere or stored locally and put in the axios spot
+need bearer token to be stored properly 
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

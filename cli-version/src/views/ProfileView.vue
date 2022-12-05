@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+
+import axios from 'axios'
 
 export default {
   name: 'ProfileView',
@@ -28,16 +29,17 @@ data() {
     },
 
 mounted() {
-    axios.get('http://localhost:3000/api/auth/profile/:employeeID', {
+    axios.get('http://localhost:3000/api/auth/profile/' + '100102', {
       headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('token'),
         }
     })
-    .then(response => {this.userInfo = response.data.userInfo})
-    .catch((error) => console.log(error));
-  }
-}  
+    .then(response => {
+    this.userInfo = response.data
+    })
+}
+
+}
 
 </script>
 
