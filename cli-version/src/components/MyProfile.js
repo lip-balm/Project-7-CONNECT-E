@@ -1,9 +1,9 @@
-<template>
+{/* <template>
     <div class="profile">
-        <h1>Hi {{ name }},</h1>
-        <p id='IDField'>Employee ID: </p>
-        <p id='bioField'>About Me: </p>
-        <p id='passwordField'>Password: </p>
+        <h1>{{ msg }}</h1>
+        <h2 id= 'nameField'>Hi {{ userInfo.name }},</h2>
+        <p id='IDField'>Employee ID: {{ userInfo.employeeID }}</p>
+        <p id='bioField'>About Me: {{ userInfo.bio }} </p>
     </div>
 </template>
 
@@ -13,17 +13,17 @@ export default {
   props: {
     msg: String
   },
-  data() {
+data() {
     return {
       userInfo: {
-        employeeID: '',
-        password: '',
         name: '',
-        bio: '',
+        employeeID: '',
+        bio: ''
       }
     }
-  },
-}
+  }
+  
+}  
 </script>
 
 <style scoped lang="scss">
@@ -57,4 +57,4 @@ p {
   }
 
 </style>
-
+ */}

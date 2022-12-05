@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'SignIn',
   props: {
@@ -33,7 +34,11 @@ export default {
           password: this.password,
         })
       })
-           .then(response => response.json())
+           .then(response => { response.json();
+           if (response.status == 200) {
+            this.$router.push({ name: 'forum' });
+           }
+           })
            .then(data => console.log(data))
            .then(json => {this.userInfo = json.data})
            .catch(error => {

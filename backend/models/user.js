@@ -20,11 +20,7 @@ User.init({
     bio: {
         type: DataTypes.TEXT,
         allowNull: true,
-    },
-    // img: {
-    //     type: DataTypes.BLOB('long'),
-    //     allowNull: true,
-    // }
+    }
 },
     {
         sequelize,

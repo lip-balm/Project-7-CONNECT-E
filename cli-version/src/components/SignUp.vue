@@ -6,7 +6,6 @@
             <label>Password <input class="textbox" type="password" v-model="password" required></label>
             <label>Name <input class="textbox" type="text" v-model="name" required placeholder="this will be your display name"></label>
             <label>Bio <input class="textbox" type="text" v-model="bio" placeholder="this is optional but recommended"></label>
-            <label> Image <br> (optional)<input type="file"></label>
             <button @click="usersignup">Sign Up</button>
         </div>
   </div>
@@ -43,7 +42,8 @@ export default {
       })
            .then(response => response.json())
            .then(data => console.log(data))
-           .then(json => {this.userInfo = json.data})
+           .then(json => {this.userInfo = json.data},
+                          this.$router.push({ name: "profile" }))
            .catch(error => {
              this.error = error;
           });

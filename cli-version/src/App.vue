@@ -1,14 +1,11 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/profile">My Profile</router-link> |
+    <router-link to="/profile" @click="userprofile">My Profile</router-link> |
     <router-link to="/forum">Employee Forum</router-link>
   </nav>
   <router-view/>
 </template>
-
-
-// protected views and routes or maybe hide nav based on log in
 
 <style lang="scss">
 #app {
