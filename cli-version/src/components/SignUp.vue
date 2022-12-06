@@ -44,7 +44,8 @@ export default {
            .then(data => {
             console.log(data);
             this.$store.dispatch('setEmployeeId', data.employeeID);
-            this.$router.push('http://localhost:3000/api/auth/profile/' + this.$store.getters.getEmployeeId);
+            console.log('sign up check 1', data.employeeID);
+            this.$router.push('http://localhost:3000/api/auth/profile/' + data.employeeID);
             })
            .then(json => {this.userInfo = json.data},)
            .catch(error => {
