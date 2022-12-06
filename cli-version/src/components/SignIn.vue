@@ -20,39 +20,35 @@ export default {
     return {
       userInfo: {
         employeeID: '',
-        password: ''
+        password: '',
+        userLoggedIn: false,
       }
     }
   },
-  methods: {
-    usersignin: function() {
-      fetch('http://localhost:3000/api/auth/signin', {
-        method: 'POST',
-        headers:{ 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          employeeID: this.employeeID,
-          password: this.password,
-        })
+methods: {
+  usersignin: function () {
+    fetch('http://localhost:3000/api/auth/signin', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        employeeID: this.employeeID,
+        password: this.password,
       })
-           .then(response => { response.json();
-           if (response.status == 200) {
-            this.$router.push({ name: 'profile' });
-           }
-           })
-           .then(data => console.log(data))
-           .then(json => {this.userInfo = json.data
-           console.log(json.data)
-            localStorage.setItem('token', json.data.token)
-           })
-           .catch(error => {
-             this.error = error;
-          });
-    },
+    })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          this.$store.dispatch('setEmployeeId', data.employeeID);
+          this.$store.dispatch('setToken', data.token);
+          this.$router.push({name: 'forum'})
+        })
+        .catch(error => {
+          this.error = error;
+          console.log(error);
+        });
+  },
 }
 }
-
-employeeid needs to fetched from somewhere or stored locally and put in the axios spot
-need bearer token to be stored properly 
 
 </script>
 
@@ -77,11 +73,11 @@ input {
 
 button {
     margin: 12px;
-    padding: 13px 10px 10px;
+    padding: 19px 15px 15px;
     color: #fd2d01;
     border-color: #fd2d01;
-    height: 65px;
-    width: 65px;
+    height: 75px;
+    width: 75px;
     border-radius: 50%;
     border: none;
     border-width: 5px;

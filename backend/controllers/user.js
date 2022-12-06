@@ -65,14 +65,14 @@ exports.signIn = (req, res, next) => {
     })};
 
 exports.getProfile = (req, res, next) => {
-    // console.log(req.body);
-    const employeeIDCheck = `SELECT name, employeeID, bio FROM users WHERE employeeID = '${req.body.employeeID}'`;
+    const employeeIDCheck = `SELECT name, employeeID, bio FROM users WHERE employeeID = '${req.params.employeeID}'`;
         database.query(employeeIDCheck, function (err, result) {
             if (err) {
                 throw err
-              } if (result.length !== 0){ 
+              } else if (result.length !== 0){
                 return res.status(200).json(result[0]);
               } else {
+              console.log(res);
                 return res.status(401).json({error: 'No result found'});
             }
     })

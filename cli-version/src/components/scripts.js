@@ -1,73 +1,29 @@
-// {/* <script src="./scripts.js"></script> */}
-
-
-// export default {
-//     data() {
-//       return {
-//         data: [],
-//         error: null
-//       };
-//     },
-//     methods: {
-//         usersignup: function() {
-//         fetch('http://localhost:3000/api/auth/signup', {
-//             mode: 'no-cors',
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//               },
-//             body: JSON.stringify("hi")})
-//           .then(response => response.json())
-//           .then(json => {
-//             this.data = json.data;
+// methods: {
+//     usersignin: function () {
+//       fetch('http://localhost:3000/api/auth/signin', {
+//         method: 'POST',
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify({
+//           employeeID: this.employeeID,
+//           password: this.password,
+//         })
+//       })
+//           .then(response => response.json().then(parsedRES => {if (parsedRES.status === '200') {
+//             this.$store.commit('loggedin', parsedRES)}
+//             })
+//           )
+//           .then(data => {
+//             console.log(data);
+//             this.$router.push({name: 'forum'});
 //           })
 //           .catch(error => {
 //             this.error = error;
+//             console.log(error);
 //           });
-//       }
-//     }
-//   };
+//     },
+//   }
+//   }
 
-
-
-// methods: {
-//     userprofile: function() {
-//         fetch('http://localhost:3000/api/auth/profile' + this.employeeID, {
-//           method: 'GET',
-//           headers:{ 'Content-Type': 'application/json' },
-//           body: JSON.stringify({
-//             employeeID: this.employeeID,
-//             name:  this.name,
-//             bio: this.bio,
-//           })
-//         })
-//              .then(response => response.json())
-//              .then(data => console.log(data))
-//              .then(json => {this.userInfo = json.data})
-//              .catch(error => {
-//                this.error = error;
-//             });
-//             }
-//       },
-  
-//   created: function(){
-//           this.userprofile()
-//       }
-  
-
-// mounted() {
-//     axios.get('http://localhost:3000/api/auth/profile/:employeeID', {
-//       headers: {
-//             Authorization: 'Bearer ' + localStorage.getItem('token'),
-//         }
-//     })
-//     .then(response => {
-//     this.userInfo = response.data
-//     })
-// }
-// }  
-
-// let userInfo = response.data
-// this.userInfo.name = userInfo.name
-// this.userInfo.employeeID = userInfo.employeeID
-// this.userInfo.bio = userInfo.bio
+// employeeid needs to fetched from somewhere or stored locally and put in the axios spot
+// need bearer token to be stored properly 
+// calling methods on mount, authentication

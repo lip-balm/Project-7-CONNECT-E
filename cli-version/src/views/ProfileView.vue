@@ -2,43 +2,57 @@
   <div id="profile">
     <h1>Welcome to your profile!</h1>    
         <h1>{{ msg }}</h1>
-        <h2 id= 'nameField'>Hi {{ this.userInfo.name }},</h2>
+        <h2 id= 'nameField'>Hi {{ userInfo.name }},</h2>
         <p id='IDField'>Employee ID: {{ userInfo.employeeID }}</p>
         <p id='bioField'>About Me: {{ userInfo.bio }} </p>
+        <button id="editbutton" @click="profileEdit">Edit Profile</button>
+        <button @click="userSignOut">Sign Out</button>
+
   </div>
 </template>
 
 <script>
-
-import axios from 'axios'
-
 export default {
   name: 'ProfileView',
-  components: {
-  },
+  components: {},
 
-data() {
+  data() {
     return {
       userInfo: {
-        loading: false,
-        name: this.name,
-        employeeID: this.employeeID,
-        bio: this.bio,
-      }
-      };
+        name: '',
+        employeeID: '',
+        bio: '',
+      },
+      error: '',
+    };
+  },
+  created() {
+      fetch('http://localhost:3000/api/auth/profile/' + this.$store.getters.getEmployeeId, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      })
+          .then(res => res.json())
+          .then(res => {
+            console.log(res);
+            this.userInfo = res;
+          })
+          .catch(error => {
+            this.error = error;
+            console.log(error);
+          });
     },
 
-mounted() {
-    axios.get('http://localhost:3000/api/auth/profile/' + '100102', {
-      headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => {
-    this.userInfo = response.data
-    })
-}
+  methods: {
+    userSignOut() {
+      this.$router.push({name: 'home'})
+      this.$store.commit('logout')
+    }
 
+
+}
 }
 
 </script>
@@ -72,5 +86,22 @@ p {
 #bioField {
   height:200px
   }
+
+button {
+    margin: 12px;
+    padding: 13px 10px 10px;
+    color: #fd2d01;
+    border-color: #fd2d01;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    border: none;
+    border-width: 5px;
+    background-color: #fcd4d2;
+}
+
+#editbutton {
+  padding: 8px 10px 10px;
+}
 
 </style>

@@ -41,9 +41,12 @@ export default {
         })
       })
            .then(response => response.json())
-           .then(data => console.log(data))
-           .then(json => {this.userInfo = json.data},
-                          this.$router.push({ name: "profile" }))
+           .then(data => {
+            console.log(data);
+            this.$store.dispatch('setEmployeeId', data.employeeID);
+            this.$router.push('/profile' + data.employeeID);
+            })
+           .then(json => {this.userInfo = json.data},)
            .catch(error => {
              this.error = error;
           });
@@ -76,8 +79,8 @@ button {
     padding: 13px 10px 10px;
     color: #fd2d01;
     border-color: #fd2d01;
-    height: 65px;
-    width: 65px;
+    height: 75px;
+    width: 75px;
     border-radius: 50%;
     border: none;
     border-width: 5px;
