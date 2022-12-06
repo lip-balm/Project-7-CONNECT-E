@@ -9,6 +9,7 @@ router.use(bodyParser.json());
 
 router.post('/signup', userController.signUp);
 router.post('/signin', userController.signIn);
+
 router.get('/profile/:employeeID', auth, userController.getProfile);
 
 module.exports = router;

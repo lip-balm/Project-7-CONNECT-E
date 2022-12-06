@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
   if (to.name !== 'home' & !token) {
       next('/');
   }
-  else next();
+  else next()
 });
 
 

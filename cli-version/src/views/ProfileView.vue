@@ -31,7 +31,7 @@ export default {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
+          'Authorization': 'Bearer ' + this.$store.getters.getToken,
         },
       })
           .then(res => res.json())

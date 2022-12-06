@@ -1,6 +1,15 @@
 import { createStore } from 'vuex'
+import VuexPersist from 'vuex-persist';
+
+const vuexLocalStorage = new VuexPersist({
+  storage: window.localStorage,
+})
 
 export default createStore({
+  // plugins: [VuexPersist({
+  //   storage: window.sessionStorage,
+  // })],
+  plugins: [vuexLocalStorage.plugin],
   state: {
 
   },
