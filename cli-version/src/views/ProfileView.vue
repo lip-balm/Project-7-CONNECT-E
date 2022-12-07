@@ -48,10 +48,8 @@ export default {
   methods: {
     userSignOut() {
       this.$router.push({name: 'home'})
-      this.$store.commit('logout')
+      this.$store.commit('signout')
     }
-
-
 }
 }
 
