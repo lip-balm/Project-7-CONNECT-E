@@ -5,8 +5,9 @@
         <h2 id= 'nameField'>Hi {{ userInfo.name }},</h2>
         <p id='IDField'>Employee ID: {{ userInfo.employeeID }}</p>
         <p id='bioField'>About Me: {{ userInfo.bio }} </p>
-        <button id="editbutton" @click="profileEdit">Edit Profile</button>
+        <!-- <button @click="profileEdit">Edit Profile</button> -->
         <button @click="userSignOut">Sign Out</button>
+        <button @click="userDelete">Delete Profile</button>
 
   </div>
 </template>
@@ -49,7 +50,26 @@ export default {
     userSignOut() {
       this.$router.push({name: 'home'})
       this.$store.commit('signout')
+    },
+    
+    userDelete() {
+      fetch('http://localhost:3000/api/auth/profile/' + this.$store.getters.getEmployeeId, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.$store.getters.getToken,
+              },
+            })
+                .then(res => res.json())
+                .then(data => console.log(data),
+                        this.$router.push({name: 'home'}),
+                        this.$store.commit('signout')) 
+                .catch(error => {this.error = error;
+                                console.log(error);
+                });
     }
+
+
 }
 }
 
@@ -82,12 +102,12 @@ p {
 }
 
 #bioField {
-  height:200px
+  height:175px
   }
 
 button {
-    margin: 12px;
-    padding: 13px 10px 10px;
+    margin: 10px 100px;
+    padding: 15px;
     color: #fd2d01;
     border-color: #fd2d01;
     height: 75px;
@@ -96,10 +116,6 @@ button {
     border: none;
     border-width: 5px;
     background-color: #fcd4d2;
-}
-
-#editbutton {
-  padding: 8px 10px 10px;
 }
 
 </style>

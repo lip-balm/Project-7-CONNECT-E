@@ -1,6 +1,5 @@
 <template>
   <div id="home">
-    <img alt="Groupomania logo" src="../assets/images/icon-above-font.png">
     <AboutUs msg="Welcome to the Groupomania employee forum, where you can connect with those around you."/>
     <h1>Find company in your company.</h1>
     <SignUp msg="We'll make this easy. Don't have an account? Fill in the below to sign up."/> 
@@ -25,7 +24,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  img {
-    width: 18%
-    }
 </style>

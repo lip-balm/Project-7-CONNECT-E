@@ -77,3 +77,17 @@ exports.getProfile = (req, res, next) => {
             }
     })
 };
+
+exports.deleteProfile = (req, res, next) => {
+    // delete user
+    const profileDelete = `DELETE FROM users WHERE employeeID = '${req.params.employeeID}'`;
+    database.query(profileDelete, function (err, result) {
+        if (err) {
+            throw err
+        }
+        return res.status(200).json(result)
+    })
+
+    // delete their posts too?
+
+}

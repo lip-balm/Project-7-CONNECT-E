@@ -4,6 +4,7 @@
     <router-link to="/profile" @click="userprofile">My Profile</router-link> |
     <router-link to="/forum">Employee Forum</router-link>
   </nav>
+      <img alt="Groupomania logo" src="./assets/images/icon-above-font.png">
   <router-view/>
 </template>
 
@@ -32,6 +33,10 @@ nav {
     }
   }
 }
+
+img {
+    width: 18%
+  }
 
 button {
   font-size: 15px;
