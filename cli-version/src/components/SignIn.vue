@@ -62,9 +62,18 @@ methods: {
 label {
     display: flex;
     justify-content: center;
-    flex-direction: vertical;
     gap: 10px;
     padding: 10px;
+}
+
+.textbox {
+  padding-top: 3px;
+  width: 250px;
+  height: 20px;
+  border: 1px;
+  border-style: solid;
+  border-color: #fd2d01;
+  border-radius: 7px;
 }
 
 input {

@@ -35,7 +35,7 @@ nav {
 }
 
 img {
-    width: 18%
+    width: 15%
   }
 
 button {

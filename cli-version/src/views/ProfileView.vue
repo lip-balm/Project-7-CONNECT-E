@@ -27,6 +27,7 @@ export default {
       error: '',
     };
   },
+  
   created() {
       fetch('http://localhost:3000/api/auth/profile/' + this.$store.getters.getEmployeeId, {
         method: 'GET',
@@ -81,10 +82,6 @@ export default {
     font-weight: bold;
 }
 
-h1 {
-  color: #fd2d01;
-}
-
 p {
   border: 1px;
   border-style: solid;
@@ -114,7 +111,6 @@ button {
     width: 75px;
     border-radius: 50%;
     border: none;
-    border-width: 5px;
     background-color: #fcd4d2;
 }
 

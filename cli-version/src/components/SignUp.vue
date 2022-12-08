@@ -72,7 +72,13 @@ label {
 }
 
 .textbox {
+  padding-top: 3px;
   width: 250px;
+  height: 20px;
+  border: 1px;
+  border-style: solid;
+  border-color: #fd2d01;
+  border-radius: 7px;
 }
 
 button {

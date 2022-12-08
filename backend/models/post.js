@@ -14,7 +14,9 @@ Post.init({
     },
     postID: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
     },
     title: {
         type: DataTypes.STRING,
@@ -37,5 +39,3 @@ Post.init({
 
 console.log(Post === sequelize.models.Post);
 module.exports = Post;
-
-// create table posts (employeeID INTEGER(6), name VARCHAR(255), postID INTEGER AUTO_INCREMENT, title VARCHAR(255), description TEXT, date,PRIMARY KEY (postID))
