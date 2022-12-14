@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import store from '../store'
-const token = store.getters.getToken;
 
 const routes = [
   {
@@ -46,8 +45,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('router token check', store.getters.getToken);
-  if (to.name !== 'home' & !token) {
+  console.log('router token check', store.state);
+  if (to.name !== 'home' && !store.state.token) {
       next('/');
   }
   else next()

@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const database = require('../database');
-const fs = require('fs');
+// const fs = require('fs');
 
 
 exports.signUp = (req, res, next) => {
@@ -82,12 +82,15 @@ exports.deleteProfile = (req, res, next) => {
     // delete user
     const profileDelete = `DELETE FROM users WHERE employeeID = '${req.params.employeeID}'`;
     database.query(profileDelete, function (err, result) {
-        if (err) {
-            throw err
-        }
+        if (err) {throw err}
         return res.status(200).json(result)
     })
 
     // delete their posts too?
+    const postsDelete = `DELETE FROM posts WHERE employeeID = '${req.params.employeeID}'`;
+    database.query(postsDelete, function (err, result) {
+        if (err) {throw err}
+        return res.status(200).json(result)
+        })
 
 }

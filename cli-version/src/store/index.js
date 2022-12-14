@@ -1,17 +1,9 @@
 import { createStore } from 'vuex'
-import VuexPersist from 'vuex-persist';
-
-const vuexLocalStorage = new VuexPersist({
-  storage: window.localStorage,
-})
 
 export default createStore({
-  // plugins: [VuexPersist({
-  //   storage: window.sessionStorage,
-  // })],
-  plugins: [vuexLocalStorage.plugin],
   state: {
-
+    employeeId:'',
+    token:'',
   },
   getters: {
     getToken() {
@@ -22,11 +14,13 @@ export default createStore({
     },
   },
   mutations: {
-    setToken(state, value) {
-      localStorage.setItem('token', value);
+    setToken(state, token) {
+      localStorage.setItem('token', token);
+      state.token = token;
     },
-    setEmployeeId(state, value) {
-      localStorage.setItem('employeeID', JSON.stringify(value));
+    setEmployeeId(state, employeeID) {
+      localStorage.setItem('employeeID', JSON.stringify(employeeID));
+      state.employeeId = employeeID;
     },
     signout() {
       sessionStorage.clear()
@@ -35,11 +29,11 @@ export default createStore({
     }
   },
   actions: {
-    setToken(context, value) {
-      context.commit('setToken', value);
+    setToken(context, token) {
+      context.commit('setToken', token)
     },
-    setEmployeeId(context, value) {
-      context.commit('setEmployeeId', value);
+    setEmployeeId(context, employeeID) {
+      context.commit('setEmployeeId', employeeID)
     },
   },
   modules: {

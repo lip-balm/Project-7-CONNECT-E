@@ -8,14 +8,16 @@
         <!-- <button @click="profileEdit">Edit Profile</button> -->
         <button @click="userSignOut">Sign Out</button>
         <button @click="userDelete">Delete Profile</button>
-
   </div>
+    <someonesProfile msg="Looking for someone's profile? Search their employee ID below!"/>
 </template>
 
 <script>
+import someonesProfile from '@/components/someonesProfile.vue';
+
 export default {
   name: 'ProfileView',
-  components: {},
+  components: {someonesProfile,},
 
   data() {
     return {
@@ -29,11 +31,11 @@ export default {
   },
   
   created() {
-      fetch('http://localhost:3000/api/auth/profile/' + this.$store.getters.getEmployeeId, {
+      fetch('http://localhost:3000/api/auth/profile/' + this.$store.state.employeeId, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.$store.getters.getToken,
+          'Authorization': 'Bearer ' + this.$store.state.token,
         },
       })
           .then(res => res.json())
@@ -54,20 +56,20 @@ export default {
     },
     
     userDelete() {
-      fetch('http://localhost:3000/api/auth/profile/' + this.$store.getters.getEmployeeId, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + this.$store.getters.getToken,
-              },
+      fetch('http://localhost:3000/api/auth/profile/' + this.$store.state.employeeId, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
             })
-                .then(res => res.json())
-                .then(data => console.log(data),
-                        this.$router.push({name: 'home'}),
-                        this.$store.commit('signout')) 
-                .catch(error => {this.error = error;
-                                console.log(error);
-                });
+        .then(res => res.json())
+        .then(data => console.log(data),
+          this.$router.push({name: 'home'}),
+          this.$store.commit('signout')) 
+        .catch(error => {this.error = error;
+                        console.log(error);
+        });
     }
 
 

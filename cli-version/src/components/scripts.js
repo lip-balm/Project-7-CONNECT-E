@@ -1,29 +1,29 @@
-// methods: {
-//     usersignin: function () {
-//       fetch('http://localhost:3000/api/auth/signin', {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify({
-//           employeeID: this.employeeID,
-//           password: this.password,
-//         })
-//       })
-//           .then(response => response.json().then(parsedRES => {if (parsedRES.status === '200') {
-//             this.$store.commit('loggedin', parsedRES)}
-//             })
-//           )
-//           .then(data => {
-//             console.log(data);
-//             this.$router.push({name: 'forum'});
-//           })
-//           .catch(error => {
-//             this.error = error;
-//             console.log(error);
-//           });
-//     },
-//   }
-//   }
+//this works for all posts
 
-// employeeid needs to fetched from somewhere or stored locally and put in the axios spot
-// need bearer token to be stored properly 
-// calling methods on mount, authentication
+{/* <div class="postCard">
+<p class="postAuthor" v-for="post in posts" :key="post.postID"> {{ post.name }} ({{ post.employeeID }}) said </p>
+<p class="postDate" v-for="post in posts" :key="post.postID"> {{ post.date }} </p>
+  <section class="postContent">
+    <p class="postTitle" v-for="post in posts" :key="post.postID"> {{ post.title }} </p>
+    <p class="postDescription" v-for="post in posts" :key="post.postID"> {{ post.description }} </p>
+  </section>
+  <section class="postComment">
+    <input class="textbox" placeholder="start typing here...">
+    <button @click="addComment">Comment</button>
+  </section>
+</div> */}
+
+
+//this works for someposts
+{/* <div class="postCard" v-if="display">
+    <p class="postAuthor" v-for="post in posts" :key="post.postID"> {{ post.name }} ({{ post.employeeID }}) said </p>
+    <p class="postDate" v-for="post in posts" :key="post.postID"> {{ post.date }} </p>
+      <section class="postContent" v-if="display">
+        <p class="postTitle" v-for="post in posts" :key="post.postID"> {{ post.title }} </p>
+        <p class="postDescription" v-for="post in posts" :key="post.postID"> {{ post.description }} </p>
+      </section>
+      <section class="postComment" v-if="display">
+        <input class="commentBox" placeholder="start typing here...">
+        <button @click="addComment">Comment</button>
+      </section>
+  </div> */}
