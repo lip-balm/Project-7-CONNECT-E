@@ -74,7 +74,7 @@ button {
 }
 
 .IDbox {
-  width: 275px;
+  width: 250px;
   height: 25px;
   border: 1px;
   border-style: solid;
