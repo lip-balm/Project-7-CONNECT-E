@@ -1,7 +1,7 @@
 <template>
   <div id="uploadForm">
       <label>Title<input class="textbox" required></label>
-      <label>Description <input class="textbox" required></label>
+      <label>Description <textarea class="textboxDesc" required> </textarea></label>
       <label>Image <input type="file"></label>
   </div>
   <button @click="addPost">Upload Post</button>
@@ -90,11 +90,21 @@ label {
 
 .textbox {
   padding-top: 3px;
-  width: 250px;
+  width: 350px;
   height: 20px;
   border: 1px;
   border-style: solid;
   border-color: #fd2d01;
   border-radius: 7px;
 }
+
+.textboxDesc {
+  width: 350px;
+  height: 100px;
+  border: 1px;
+  border-style: solid;
+  border-color: #fd2d01;
+  border-radius: 7px;
+}
+
 </style>

@@ -9,7 +9,7 @@
         <button @click="userSignOut">Sign Out</button>
         <button @click="userDelete">Delete Profile</button>
   </div>
-    <someonesProfile msg="Looking for someone's profile? Search their employee ID below!"/>
+  <someonesProfile/>
 </template>
 
 <script>
@@ -101,7 +101,7 @@ p {
 }
 
 #bioField {
-  height:175px
+  height: 100px
   }
 
 button {

@@ -88,7 +88,9 @@ button {
   flex-wrap: wrap;
   row-gap: 50px;
 }
+
 .postCard {
+  margin-top: 30px;
   border: 1px;
   border-style: solid;
   border-color: #fd2d01;
@@ -127,17 +129,6 @@ button {
 .postComment {
   display: flex;
   justify-content: center;
-}
-
-button {
-  color: #fd2d01;
-  border-color: #fd2d01;
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  border: none;
-  background-color: #fcd4d2;
-  margin: 10px;
 }
 
 .textbox {

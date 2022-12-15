@@ -78,6 +78,21 @@ exports.getProfile = (req, res, next) => {
     })
 };
 
+// exports.getOneProfile = (req, res, next) => {
+//     const employeeIDCheck = `SELECT name, employeeID, bio FROM users WHERE employeeID = '${req.params.employeeID}'`;
+//         database.query(employeeIDCheck, function (err, result) {
+//             if (err) {
+//                 throw err
+//               } else if (result.length !== 0){
+//                 return res.status(200).json(result[0]);
+//               } else {
+//               console.log(res);
+//                 return res.status(401).json({error: 'No result found'});
+//             }
+//     })
+// };
+
+
 exports.deleteProfile = (req, res, next) => {
     // delete user
     const profileDelete = `DELETE FROM users WHERE employeeID = '${req.params.employeeID}'`;
