@@ -1,10 +1,12 @@
 const database = require('../database');
 
 exports.addPost = (req, res, next) => {
+    let url = null;
     console.log('addpostcheck', req.body);
-    // if (req.file) {const url = req.protocol + '://' + req.get('host') + '/images/' + req.file.filename;};
-    // what do i do with the above?? store in sql??
-    const addAPost = `INSERT INTO posts (employeeID, date, name, postID, title, description) VALUES ('${req.params.employeeID}', default, '${req.body.name}', '0', '${req.body.title}', '${req.body.description}')`;
+    if (req.file) {url = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`};
+    console.log('what is the req file', req.file);
+    console.log('checking img url', url);
+    const addAPost = `INSERT INTO posts (employeeID, name, title, description, imageURL) VALUES ('${req.body.employeeID}', '${req.body.name}', '${req.body.title}', '${req.body.description}', '${url}')` ;
     database.query(addAPost, function (err, result) {
         if (err) throw err;
         res.status(201).json({message: 'Post created successfully!'});
@@ -17,7 +19,6 @@ exports.getAllPosts = (req, res, next) => {
         if (err) {throw err}
         return res.status(200).json(result)
     })
-
 };
 
 // exports.getOnePost = (req, res, next) => {
@@ -42,9 +43,15 @@ exports.getUsersPosts = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
     console.log('post delete check', req.body);
-    const postDelete = `DELETE FROM posts WHERE postID = '${req.params.postID}'`;
+    const postDelete = `DELETE FROM posts WHERE postID = '${req.body.postID}'`;
     database.query(postDelete, function (err, result) {
         if (err) {throw err}
-        return res.status(200).json(result)
+        let allPosts; 
+        const getPosts = `SELECT * FROM posts`;
+        database.query(getPosts, function (err, result) {
+            if (err) {throw err}
+            return allPosts = result
+        })
+        return res.status(200).json(allPosts)
     })
 };

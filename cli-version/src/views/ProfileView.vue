@@ -5,9 +5,9 @@
         <h2 id= 'nameField'>Hi {{ userInfo.name }},</h2>
         <p id='IDField'>Employee ID: {{ userInfo.employeeID }}</p>
         <p id='bioField'>About Me: {{ userInfo.bio }} </p>
-        <!-- <button @click="profileEdit">Edit Profile</button> -->
-        <button @click="userSignOut">Sign Out</button>
         <button @click="userDelete">Delete Profile</button>
+        <button @click="userSignOut">Sign Out</button>
+
   </div>
   <someonesProfile/>
 </template>
@@ -114,6 +114,16 @@ button {
     border-radius: 50%;
     border: none;
     background-color: #fcd4d2;
+}
+
+@media all and (max-width: 480px) {
+  .profile, p {
+    width: 90%
+  }
+
+  button {
+    margin: 5px 50px;
+  }
 }
 
 </style>

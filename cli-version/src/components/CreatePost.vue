@@ -1,8 +1,8 @@
 <template>
   <div id="uploadForm">
-      <label>Title<input class="textbox" required></label>
-      <label>Description <textarea class="textboxDesc" required> </textarea></label>
-      <label>Image <input type="file"></label>
+      <label>Title<input v-model="title" class="textbox" required></label>
+      <label>Description <textarea v-model="description" class="textboxDesc" required> </textarea></label>
+      <label>Image <input type="file" @change="ifImgAdded"></label>   then add it to payload then append it to the body/form data and backend needs to accept 
   </div>
   <button @click="addPost">Upload Post</button>
 </template>
@@ -19,10 +19,16 @@ export default {
         postID: '',
         title: '',
         description: '',
-      }
+        imageURL: '',
+      },
     }
   },
   methods: {
+    ifImgAdded(event) {
+       this.imageURL = event.target.files[0]
+       console.log(event.target.files[0]);
+    },
+
     addPost: function () {
         fetch('http://localhost:3000/api/auth/forum', {
           method: 'POST',
@@ -31,12 +37,11 @@ export default {
             'Authorization': 'Bearer ' + this.$store.state.token,
           },
           body: JSON.stringify({
-            employeeID: this.employeeID,
-            date: this.date,
-            name:  this.name,
-            postID: this.postID,
+            employeeID: this.$store.state.employeeId,
+            name:  'add post checking name',
             title: this.title,
             description: this.description,
+            imageURL: this.imageURL,
         })
         })
            .then(response => response.json())

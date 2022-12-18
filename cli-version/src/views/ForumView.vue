@@ -57,4 +57,12 @@ button {
   border: none;
   background-color: #fcd4d2;
 }
+
+@media all and (max-width: 480px) {
+  .allTheButtons {
+    gap: 18px;
+  }
+
+}
+
 </style>

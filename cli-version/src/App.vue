@@ -35,7 +35,7 @@ nav {
 }
 
 img {
-    width: 15%
+    width: 200px;
   }
 
 button {
@@ -47,4 +47,15 @@ button {
     color: #fd2d01;
   }
 }
+
+@media all and (max-width: 480px) {
+  h1 {
+    font-size: 18px;
+  }
+
+  nav {
+    padding: 10px;
+  }
+}
+
 </style>

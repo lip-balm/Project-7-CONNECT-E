@@ -1,7 +1,7 @@
 <template>
   <h2>Looking for someone's profile? Search their employee ID below!</h2>
   <div class="search">
-    <input class="IDbox" placeholder="whose profile would you like to see? (enter ID)" v-model="userInfo">
+    <input class="IDbox" placeholder="please enter a 6-digit employee ID" v-model="userInfo">
     <button @click="getSomeonesProfile">Get Profile</button>
   </div>
   <div v-if="display">
@@ -104,7 +104,16 @@ p {
   height: 100px
 }
 
+@media all and (max-width: 480px) {
+  .profile, p {
+    width: 90%
+  }
+}
+
 </style>
+
+
+// within posts have an array of comments with an array of id/name/comment id/text
 
 
 // create table comments (employeeID INTEGER(6), name VARCHAR(255), postID INTEGER, commentID INTEGER AUTO_INCREMENT, comment TEXT, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY (commentID));

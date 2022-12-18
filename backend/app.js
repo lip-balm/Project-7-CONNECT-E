@@ -7,9 +7,10 @@ const path = require('path');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 
-app.use(express.json());
+// app.use(express.json());
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
@@ -31,8 +32,4 @@ app.get("/", (req, res) => {
     res.send("Hello");
 });
   
-// app.get("/:universalURL", (req, res) => {
-//     res.send("404 URL NOT FOUND");
-// });
-
 module.exports = app;

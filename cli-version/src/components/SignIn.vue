@@ -92,4 +92,15 @@ button {
     border-width: 5px;
     background-color: #fcd4d2;
 }
+
+@media all and (max-width: 480px) {
+  h2 {
+    font-size: 16px;
+  }
+
+  .textbox {
+    width: 200px;
+  }
+}
+
 </style>

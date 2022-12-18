@@ -6,15 +6,24 @@
         <section class="postContent">
           <p class="postTitle"> {{ post.title }} </p>
           <p class="postDescription"> {{ post.description }} </p>
+          <div v-if="post.imageURL != null" class="postImg"><img :src="post.imageURL"></div>
         </section>
         <section class="postComment">
-          <button @click="postDelete" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
-          <input class="textbox" placeholder="start typing your comment here...">
+          <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
+          <input class="textbox" placeholder="start typing here...">
           <button @click="addComment">Comment</button>
         </section>
     </div>
   </div>
 </template>
+
+in post db add another key boolean flag like read, set to false when clicked
+
+
+
+
+
+
 
 <script>
 export default {
@@ -41,13 +50,17 @@ export default {
   },
 
   methods: {
-      postDelete() {
+      postDelete(postID) {
+        console.log('checking for delete event', postID),
       fetch('http://localhost:3000/api/auth/forum/post', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + this.$store.state.token,
         },
+      body: JSON.stringify({
+            postID: postID,
+        })
             })
         .then(res => res.json())
         .then(data => console.log(data)) 
@@ -127,8 +140,29 @@ button {
 
 input {
   border-style: none;
-  width: 65%;
+  width: 40%;
   height: 100px;
   margin: 0;
+}
+
+@media all and (max-width: 480px) {
+  #allPostsShown {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .postCard {
+    width: 95%;
+    margin: auto;
+  }
+
+  .postTitle {
+    font-size: 16px;
+  }
+
+  .postDescription {
+    font-size: 14px;
+}
+
 }
 </style>

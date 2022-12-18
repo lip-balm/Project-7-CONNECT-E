@@ -2,7 +2,7 @@
   <div id="account">
     <h2>{{ msg }}</h2>
         <div>
-            <label>Employee ID <input class="textbox" type="number" min="100000" max="999999" v-model="employeeID" required placeholder="this would be your 6 digit employee ID"></label>
+            <label>Employee ID <input class="textbox" type="number" min="100000" max="999999" v-model="employeeID" required placeholder="enter your 6 digit employee ID"></label>
             <label>Password <input class="textbox" type="password" v-model="password" required></label>
             <label>Name <input class="textbox" type="text" v-model="name" required placeholder="this will be your display name"></label>
             <label>Bio <input class="textbox" type="text" v-model="bio" placeholder="this is optional but recommended"></label>
@@ -93,4 +93,15 @@ button {
     border-width: 5px;
     background-color: #fcd4d2;
 }
+
+
+@media all and (max-width: 480px) {
+  h2 {
+    font-size: 16px;
+  }
+
+  .textbox {
+    width: 200px;
+  }
+}  
 </style>

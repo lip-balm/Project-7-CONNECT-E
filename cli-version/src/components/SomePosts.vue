@@ -133,8 +133,31 @@ button {
 
 .textbox {
   border-style: none;
-  width: 65%;
+  width: 40%;
   height: 100px;
   margin: 0;
 }
+
+@media all and (max-width: 480px) {
+  #allPostsShown {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .postCard {
+    width: 95%;
+    margin: auto;
+    margin-top: 10px;
+  }
+
+  .postTitle {
+    font-size: 16px;
+  }
+
+  .postDescription {
+    font-size: 14px;
+}
+
+}
+
 </style>

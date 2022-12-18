@@ -30,7 +30,11 @@ Post.init({
         type: DataTypes.TIMESTAMP,
         defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
         allowNull: false,
-    }
+    },
+    imageURL: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
 },
     {
         sequelize,
