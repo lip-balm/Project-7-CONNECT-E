@@ -14,13 +14,20 @@ exports.addPost = (req, res, next) => {
     }
 )};
 
-// original
 exports.getAllPosts = (req, res, next) => {
     const getPosts = `SELECT * FROM posts ORDER BY postID DESC`;
     database.query(getPosts, function (err, result) {
         if (err) {throw err}
         return res.status(200).json(result)
     })
+
+    // get all the comments too?
+    // const getComments = `SELECT * FROM comments WHERE postID = '${req.params.postID}'`;
+    // database.query(getComments, function (err, result) {
+    //     if (err) {throw err}
+    //     return res.status(200).json(result)
+    // })
+
 };
 
  exports.getUsersPosts = (req, res, next) => {

@@ -50,7 +50,7 @@ export default {
     .catch(err => console.log(err.message))
   },
 
-  mounted(postID) {
+  beforeMount(postID) {
     fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/allComments', {
       method: 'GET',
       headers: {
