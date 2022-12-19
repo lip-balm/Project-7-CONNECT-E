@@ -4,6 +4,7 @@ export default createStore({
   state: {
     employeeId:'',
     token:'',
+    name: '',
   },
   getters: {
     getToken() {
@@ -26,7 +27,11 @@ export default createStore({
       sessionStorage.clear()
       localStorage.clear()
       location.reload()
-    }
+    },
+    setName(state, name) {
+      localStorage.setItem('name', JSON.stringify(name));
+      state.name = name;
+    },
   },
   actions: {
     setToken(context, token) {
@@ -35,6 +40,12 @@ export default createStore({
     setEmployeeId(context, employeeID) {
       context.commit('setEmployeeId', employeeID)
     },
+    setName(context, name) {
+      context.commit('setName', name)
+    },
+    getPostsAgain(context) {
+      context.commit('getPostsAgain')
+    }
   },
   modules: {
   }

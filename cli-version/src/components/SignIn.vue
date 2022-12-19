@@ -22,6 +22,7 @@ export default {
         employeeID: '',
         password: '',
         userLoggedIn: false,
+        name: '',
       }
     }
   },
@@ -33,6 +34,7 @@ methods: {
       body: JSON.stringify({
         employeeID: this.employeeID,
         password: this.password,
+        name: this.name
       })
     })
         .then(res => res.json())
@@ -40,6 +42,7 @@ methods: {
           console.log(data);
           this.$store.dispatch('setEmployeeId', data.employeeID);
           this.$store.dispatch('setToken', data.token);
+          this.$store.dispatch('setName', data.name);
           this.$router.push({name: 'forum'})
         })
         .catch(error => {

@@ -15,8 +15,8 @@ router.get('/post/:employeeID', auth, postController.getUsersPosts);
 router.delete('/post', auth, postController.deletePost);
 
 // for the comments
-// router.post('/post/comment',auth, postController.addComment);
-// router.get('/post/comments', auth, postController.getAllComments);
-// router.delete('/post/:postID', auth, postController.deleteComment);
+router.post('/post/:postID/addComment',auth, postController.addComment);
+router.get('/post/:postID/allComments', auth, postController.getAllComments);
+// router.delete('/deleteComment', auth, postController.deleteComment);
 
 module.exports = router;

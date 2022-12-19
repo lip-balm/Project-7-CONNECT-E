@@ -7,7 +7,6 @@
         <p id='bioField'>About Me: {{ userInfo.bio }} </p>
         <button @click="userDelete">Delete Profile</button>
         <button @click="userSignOut">Sign Out</button>
-
   </div>
   <someonesProfile/>
 </template>

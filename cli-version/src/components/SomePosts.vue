@@ -12,7 +12,7 @@
           <p class="postDescription"> {{ post.description }} </p>
         </section>
         <section class="postComment">
-          <button @click="postDelete" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
+          <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
           <input class="textbox" placeholder="start typing here...">
           <button @click="addComment">Comment</button>
         </section>
@@ -47,9 +47,10 @@ export default {
     .then(data => this.posts = data)
     .then(data => console.log('some posts', data))
     .catch(err => console.log(err.message))
-  }
-}
+  },
 
+    
+},
 
 
 }

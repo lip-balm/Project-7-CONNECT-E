@@ -1,9 +1,9 @@
 <template>
-  <div id="uploadForm">
+  <form id="uploadForm" enctype="multipart/form-data">
       <label>Title<input v-model="title" class="textbox" required></label>
       <label>Description <textarea v-model="description" class="textboxDesc" required> </textarea></label>
       <label>Image <input type="file" @change="ifImgAdded"></label>   then add it to payload then append it to the body/form data and backend needs to accept 
-  </div>
+  </form>
   <button @click="addPost">Upload Post</button>
 </template>
 
@@ -23,6 +23,7 @@ export default {
       },
     }
   },
+  
   methods: {
     ifImgAdded(event) {
        this.imageURL = event.target.files[0]
@@ -45,7 +46,10 @@ export default {
         })
         })
            .then(response => response.json())
-           .then(data => {console.log(data)})
+           .then(data => {
+              console.log(data);
+              this.$router.push({name: 'forum'})
+              })
            .then(json => {this.addedPost = json.data},)
            .catch(error => {
              this.error = error;

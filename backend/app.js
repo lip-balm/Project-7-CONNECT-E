@@ -9,8 +9,8 @@ const postRoutes = require('./routes/post');
 
 // app.use(express.json());
 
-// app.use(bodyParser.json());
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json());
+// app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

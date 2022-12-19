@@ -1,6 +1,6 @@
 <template>
   <div id="allPostsShown">
-    <div class="postCard" v-for="post in posts" :key="post.postID">
+    <div class="postCard" v-for="post in posts" :key="post.postID" >
       <p class="postAuthor"> {{ post.name }} ({{ post.employeeID }}) said </p>
       <p class="postDate"> {{ post.date }} </p>
         <section class="postContent">
@@ -10,20 +10,20 @@
         </section>
         <section class="postComment">
           <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
-          <input class="textbox" placeholder="start typing here...">
-          <button @click="addComment">Comment</button>
+          <input class="textbox" placeholder="start typing here..." v-model="comment">
+          <button @click="addComment(post.postID)">Comment</button>
+        </section>
+        <section class="allComments" v-for="comment in comments" :key="comment.commentID">
+          <p class="commentAuthor"> {{ comment.employeeID }} said </p>
+          <p class="commentDate"> {{ comment.date }} </p>
+          <p class="commentText"> {{ comment.comment }} </p>
         </section>
     </div>
+
   </div>
 </template>
 
 in post db add another key boolean flag like read, set to false when clicked
-
-
-
-
-
-
 
 <script>
 export default {
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       posts: [],
+      comments: [],
     }
   },
 
@@ -49,9 +50,24 @@ export default {
     .catch(err => console.log(err.message))
   },
 
+  mounted(postID) {
+    fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/allComments', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.$store.state.token,
+      },
+    })
+  .then(res => res.json())
+  .then(data => this.comments = data)
+  .then(data => console.log('all comments1', data))
+  .catch(err => console.log(err.message))
+  },
+
+
   methods: {
-      postDelete(postID) {
-        console.log('checking for delete event', postID),
+    postDelete(postID) {
+      console.log('checking for delete event', postID),
       fetch('http://localhost:3000/api/auth/forum/post', {
         method: 'DELETE',
         headers: {
@@ -63,12 +79,37 @@ export default {
         })
             })
         .then(res => res.json())
-        .then(data => console.log(data)) 
+        .then(data => console.log(data),
+          window.location = 'http://localhost:8080/forum') 
         .catch(error => {this.error = error;
                         console.log(error);
         });
-    }
-  }
+    },
+
+    addComment(postID) {
+      console.log('is add comment working', this.comment),
+        fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/addComment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.$store.state.token,
+          },
+          body: JSON.stringify({
+            employeeID: this.$store.state.employeeId,
+            name:  'add comment checking name',
+            comment: this.comment,
+        })
+        })
+           .then(response => response.json())
+           .then(data => {console.log(data)})
+           .then(json => {this.comments = json.data},)
+           .catch(error => {
+             this.error = error;
+          });
+  },
+  
+  },
+
 
 }
 </script>
@@ -114,7 +155,7 @@ export default {
   margin: 10px;
 }
 
-.postContent, .postComment {
+.postContent, .postComment, .allComments {
   border: 1px;
   border-style: solid;
   border-color: #fd2d01;

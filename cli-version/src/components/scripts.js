@@ -1,4 +1,4 @@
-// create postMessage
+// CreatePost.vue
 
 //original
 
@@ -36,6 +36,7 @@ export default {
             name:  'add post checking name',
             title: this.title,
             description: this.description,
+            imageURL: this.imageURL,
         })
         })
            .then(response => response.json())
@@ -73,20 +74,20 @@ export default {
     },
 
     addPost: function () {
-      const formData1 = new FormData();
-      formData1.append('title', this.addedPost.title)
-      formData1.append('employeeID', this.$store.state.employeeId,)
-      formData1.append('description', this.addedPost.description)
-      formData1.append('image', this.imageURL),
+      let formData = new FormData();
+      formData.append('title', this.addedPost.title)
+      formData.append('employeeID', this.$store.state.employeeId,)
+      formData.append('description', this.addedPost.description)
+      formData.append('image', this.imageURL),
 
         fetch('http://localhost:3000/api/auth/forum', {
           method: 'POST',
-          mode: 'no-cors',
+          mode: 'no-cors', // gave cors error so added this but still doesnt work
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.$store.state.token,
           },
-          body: formData1,
+          body: formData,
         })
            .then(response => response.json())
            .then(data => {console.log(data)})
@@ -98,3 +99,21 @@ export default {
   }
 }
 </script> */}
+
+
+// AllPosts.vue
+
+// trying to get comments
+// mounted() {
+//   fetch('http://localhost:3000/api/auth/forum/post/' + this.postID + '/comments', {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Bearer ' + this.$store.state.token,
+//     },
+//   })
+// .then(res => res.json())
+// .then(data => this.comments = data)
+// .then(data => console.log('all comments', data))
+// .catch(err => console.log(err.message))
+// },
