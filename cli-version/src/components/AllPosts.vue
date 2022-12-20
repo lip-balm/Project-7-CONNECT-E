@@ -1,8 +1,15 @@
 <template>
   <div id="allPostsShown">
-    <div class="postCard" v-for="post in posts" :key="post.postID" >
-      <p class="postAuthor"> {{ post.name }} ({{ post.employeeID }}) said </p>
+    <div class="postCard" v-for="post in posts" :key="post.postID" > 
+
+    <section class="postCardTopDetails">
+      <section class="topDetails">
+      <p class="postAuthor"> {{ post.name }} ({{ post.employeeID }}) said </p> 
       <p class="postDate"> {{ post.date }} </p>
+      </section>
+      <button class="readButton" @click="markAsRead">Read</button>
+    </section>
+
         <section class="postContent">
           <p class="postTitle"> {{ post.title }} </p>
           <p class="postDescription"> {{ post.description }} </p>
@@ -13,13 +20,12 @@
           <input class="textbox" placeholder="start typing here..." v-model="comment">
           <button @click="addComment(post.postID)">Comment</button>
         </section>
-        <section class="allComments" v-for="comment in comments" :key="comment.commentID">
-          <p class="commentAuthor"> {{ comment.employeeID }} said </p>
+        <section class="allComments"  v-for="comment in comments" :key="comment.commentID" >
+          <p class="commentAuthor"> {{ comment.employeeID }} commented </p>
           <p class="commentDate"> {{ comment.date }} </p>
           <p class="commentText"> {{ comment.comment }} </p>
         </section>
     </div>
-
   </div>
 </template>
 
@@ -50,7 +56,7 @@ export default {
     .catch(err => console.log(err.message))
   },
 
-  beforeMount(postID) {
+  mounted(postID) {
     fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/allComments', {
       method: 'GET',
       headers: {
@@ -63,7 +69,6 @@ export default {
   .then(data => console.log('all comments1', data))
   .catch(err => console.log(err.message))
   },
-
 
   methods: {
     postDelete(postID) {
@@ -107,8 +112,13 @@ export default {
              this.error = error;
           });
   },
-  
   },
+
+  computed: {
+    commentMatches(){
+        return this.comments.filter(post => this.post.includes(post.postID))
+    }
+  }
 
 
 }
@@ -135,13 +145,13 @@ export default {
   width: 45%;
 }
 
-.postAuthor, .postDate {
+.postAuthor, .postDate, .commentDate, .commentAuthor {
   color: #fd2d01;
   text-align: left;
   margin: 8px 8px 6px 8px;
 }
 
-.postDate {
+.postDate, .commentDate {
   margin-top: 0px;
   font-size: 10px;
 }
@@ -179,11 +189,24 @@ button {
   margin: 10px;
 }
 
+.readButton {
+    height: 35px;
+    width: 35px;
+    font-size: 10px;
+    padding: 0;
+}
+
 input {
   border-style: none;
   width: 40%;
   height: 100px;
   margin: 0;
+}
+
+.postCardTopDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 @media all and (max-width: 480px) {

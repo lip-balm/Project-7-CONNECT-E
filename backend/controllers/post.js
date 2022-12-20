@@ -73,7 +73,8 @@ exports.addComment = (req, res, next) => {
 )};
 
 exports.getAllComments = (req, res, next) => {
-    const getComments = `SELECT * FROM comments WHERE postID = '${req.params.postID}'`;
+    console.log('checking for comments1', req);
+    const getComments = `SELECT * FROM comments`;
     database.query(getComments, function (err, result) {
         if (err) {throw err}
         return res.status(200).json(result)
