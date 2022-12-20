@@ -1,30 +1,28 @@
 <template>
   <div id="allPostsShown">
     <div class="postCard" v-for="post in posts" :key="post.postID" > 
-
-    <section class="postCardTopDetails">
-      <section class="topDetails">
-      <p class="postAuthor"> {{ post.name }} ({{ post.employeeID }}) said </p> 
-      <p class="postDate"> {{ post.date }} </p>
+      <section class="postCardTopDetails">
+        <section class="topDetails">
+        <p class="postAuthor"> {{ post.name }} ({{ post.employeeID }}) said </p> 
+        <p class="postDate"> {{ post.date }} </p>
+        </section>
+        <button class="readButton" @click="markAsRead">Read</button>
       </section>
-      <button class="readButton" @click="markAsRead">Read</button>
-    </section>
-
-        <section class="postContent">
-          <p class="postTitle"> {{ post.title }} </p>
-          <p class="postDescription"> {{ post.description }} </p>
-          <div v-if="post.imageURL != null" class="postImg"><img :src="post.imageURL"></div>
-        </section>
-        <section class="postComment">
-          <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
-          <input class="textbox" placeholder="start typing here..." v-model="comment">
-          <button @click="addComment(post.postID)">Comment</button>
-        </section>
-        <section class="allComments"  v-for="comment in comments" :key="comment.commentID" >
-          <p class="commentAuthor"> {{ comment.employeeID }} commented </p>
-          <p class="commentDate"> {{ comment.date }} </p>
-          <p class="commentText"> {{ comment.comment }} </p>
-        </section>
+      <section class="postContent">
+        <p class="postTitle"> {{ post.title }} </p>
+        <p class="postDescription"> {{ post.description }} </p>
+        <img v-if="post.imageURL != null" :src="post.imageURL">
+      </section>
+      <section class="postComment">
+        <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
+        <input class="textbox" placeholder="start typing here..." v-model="comment">
+        <button @click="addComment(post.postID)">Comment</button>
+      </section>
+      <section class="allComments"  v-for="comment in comments" :key="comment.commentID" >
+        <p class="commentAuthor"> {{ comment.employeeID }} commented </p>
+        <p class="commentDate"> {{ comment.date }} </p>
+        <p class="commentText"> {{ comment.comment }} </p>
+      </section>
     </div>
   </div>
 </template>
