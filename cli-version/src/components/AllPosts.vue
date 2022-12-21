@@ -6,7 +6,7 @@
         <p class="postAuthor"> Employee ID {{ post.employeeID }} said </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="readButton" @click="markAsRead">Read</button>
+        <button class="smallButton" @click="markAsRead">Read</button>
       </section>
       <section class="postContent">
         <p class="postTitle"> {{ post.title }} </p>
@@ -19,8 +19,11 @@
         <button @click="addComment(post.postID)">Comment</button>
       </section>
       <section class="allComments"  v-for="comment in comments" :key="comment.commentID" >
+      <section>
         <p class="commentAuthor">Employee ID {{ comment.employeeID }} commented </p>
         <p class="commentDate"> {{ comment.date }} </p>
+      </section>
+        <button @click="commentDelete" class="smallButton" v-if="this.$store.state.employeeId === comment.employeeID">Delete</button>
         <p class="commentText"> {{ comment.comment }} </p>
       </section>
     </div>
@@ -146,9 +149,9 @@ export default {
 }
 
 .postAuthor, .postDate, .commentDate, .commentAuthor {
-  color: #fd2d01;
+// color: #fd2d01;
   text-align: left;
-  margin: 8px 8px 6px 8px;
+  margin: 8px 8px 0px 8px;
 }
 
 .postDate, .commentDate {
@@ -173,6 +176,12 @@ export default {
   margin: 0px 10px 10px 10px;
 }
 
+.allComments {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
 .postComment {
   display: flex;
   justify-content: center;
@@ -189,7 +198,7 @@ button {
   margin: 10px;
 }
 
-.readButton {
+.smallButton {
     height: 35px;
     width: 35px;
     font-size: 10px;

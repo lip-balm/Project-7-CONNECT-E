@@ -2,9 +2,9 @@
   <form id="uploadForm" @submit.prevent="onSubmit" enctype="multipart/form-data">
       <label>Title<input v-model="title" class="textbox" required></label>
       <label>Description <textarea v-model="description" class="textboxDesc" required> </textarea></label>
-      <label>Image <input type="file" @change="ifImgAdded"></label>   then add it to payload then append it to the body/form data and backend needs to accept 
+      <label>Image <input type="file" @change="ifImgAdded"></label>
+      <button @click="addPost">Upload Post</button>
   </form>
-  <button @click="addPost">Upload Post</button>
 </template>
 
 <script>
@@ -45,12 +45,12 @@ export default {
         })
            .then(response => response.json())
            .then(data => {
-            if (this.title !== 'undefined' && this.description !== 'undefined') {
+            if (data.title !='' && data.description !='') {
               console.log('post data1', this.title),
               console.log('post data2', data.title),
-              alert('Success! Click See All Posts to see your new post.')
+              alert('Success :) Click See All Posts to see your new post.')
             } else {
-              alert('Please add both a title and desciption. Images are optional!');
+              alert('Please add both a title and desciption :( Images are optional.');
             }
             })
            .then(json => {this.addedPost = json.data},)
@@ -69,12 +69,6 @@ export default {
   font-weight: bold;
 }
 
-.allTheButtons {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-}
-
 button {
   color: #fd2d01;
   border-color: #fd2d01;
@@ -84,13 +78,13 @@ button {
   border: none;
   background-color: #fcd4d2;
   margin: auto;
+  margin-top: 20px;
 }
 
 #uploadForm {
   display: flex;
   flex-direction: column;
   align-content: center;
-  margin-bottom: 20px;
 }
 
 label {
