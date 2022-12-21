@@ -13,46 +13,52 @@
 
 export default {
   name: 'SignIn',
+
   props: {
     msg: String
   },
+
   data() {
     return {
       userInfo: {
         employeeID: '',
         password: '',
-        userLoggedIn: false,
         name: '',
       }
     }
   },
-methods: {
-  usersignin: function () {
-    fetch('http://localhost:3000/api/auth/signin', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        employeeID: this.employeeID,
-        password: this.password,
-        name: this.name
-      })
-    })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          this.$store.dispatch('setEmployeeId', data.employeeID);
-          this.$store.dispatch('setToken', data.token);
-          this.$store.dispatch('setName', data.name);
-          this.$router.push({name: 'forum'})
-        })
-        .catch(error => {
-          this.error = error;
-          console.log(error);
-        });
-  },
-}
-}
 
+  
+  methods: {
+    usersignin: function () {
+      fetch('http://localhost:3000/api/auth/signin', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          employeeID: this.employeeID,
+          password: this.password,
+          name: this.name
+        })
+      })
+          .then(res => res.json())
+          .then(data => {
+            if(data.employeeID && data.token) {
+              console.log(data);
+              this.$store.dispatch('setEmployeeId', data.employeeID);
+              this.$store.dispatch('setToken', data.token);
+              this.$store.dispatch('setName', data.name);
+              this.$router.push({name: 'forum'})
+            } else {
+              alert('Incorrect or empty log in details! If needed, please contact the tech department to reset your password.');
+              }
+            })
+          .catch(error => {
+            this.error = error;
+            console.log(error);
+          });
+    },
+  }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

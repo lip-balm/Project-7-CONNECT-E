@@ -1,13 +1,13 @@
 <template>
   <div id="account">
     <h2>{{ msg }}</h2>
-        <div>
+        <form @submit.prevent="onSubmit">
             <label>Employee ID <input class="textbox" type="number" min="100000" max="999999" v-model="employeeID" required placeholder="enter your 6 digit employee ID"></label>
             <label>Password <input class="textbox" type="password" v-model="password" required></label>
-            <label>Name <input class="textbox" type="text" v-model="name" required placeholder="this will be your display name"></label>
+            <label>Name <input class="textbox" type="text" v-model="name" required placeholder="tell us who you are!"></label>
             <label>Bio <input class="textbox" type="text" v-model="bio" placeholder="this is optional but recommended"></label>
             <button @click="usersignup">Sign Up</button>
-        </div>
+        </form>
   </div>
 </template>
 
@@ -42,10 +42,14 @@ export default {
       })
            .then(response => response.json())
            .then(data => {
+            if (data.employeeID && data.password && data.name) {
+            alert('Your account has been created! Sign in to start connecting with your colleages.')
             console.log(data);
             this.$store.dispatch('setEmployeeId', data.employeeID);
             console.log('sign up check 1', data.employeeID);
-            this.$router.push('http://localhost:3000/api/auth/profile/' + data.employeeID);
+            } else {
+                alert('Either an account already exists with this employee ID or your name and/or password are missing. Please double check your input or contact the tech dept!');
+              }
             })
            .then(json => {this.userInfo = json.data},)
            .catch(error => {

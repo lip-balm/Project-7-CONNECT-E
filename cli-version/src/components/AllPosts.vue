@@ -3,7 +3,7 @@
     <div class="postCard" v-for="post in posts" :key="post.postID" > 
       <section class="postCardTopDetails">
         <section class="topDetails">
-        <p class="postAuthor"> {{ post.name }} ({{ post.employeeID }}) said </p> 
+        <p class="postAuthor"> Employee ID {{ post.employeeID }} said </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
         <button class="readButton" @click="markAsRead">Read</button>
@@ -19,7 +19,7 @@
         <button @click="addComment(post.postID)">Comment</button>
       </section>
       <section class="allComments"  v-for="comment in comments" :key="comment.commentID" >
-        <p class="commentAuthor"> {{ comment.employeeID }} commented </p>
+        <p class="commentAuthor">Employee ID {{ comment.employeeID }} commented </p>
         <p class="commentDate"> {{ comment.date }} </p>
         <p class="commentText"> {{ comment.comment }} </p>
       </section>
@@ -82,8 +82,7 @@ export default {
         })
             })
         .then(res => res.json())
-        .then(data => console.log(data),
-          window.location = 'http://localhost:8080/forum') 
+        .then(data => console.log(data)) 
         .catch(error => {this.error = error;
                         console.log(error);
         });
@@ -104,12 +103,15 @@ export default {
         })
         })
            .then(response => response.json())
-           .then(data => {console.log(data)})
+           .then(data => console.log(data),
+            )
            .then(json => {this.comments = json.data},)
            .catch(error => {
              this.error = error;
           });
   },
+
+  
   },
 
   computed: {

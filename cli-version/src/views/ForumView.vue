@@ -2,7 +2,7 @@
   <div id="forum"> 
     <h1>Let's see what everyone is up to...</h1>
       <div class="allTheButtons"> 
-        <button @click="activeTab = 'AllPosts', getPosts()">Refresh All Posts</button>
+        <button @click="activeTab = 'AllPosts', getPosts()">See All Posts</button>
         <button @click="activeTab = 'SomePosts'">See Someone's Posts</button>
         <button @click="activeTab = 'CreatePost'">Create a Post</button>
       </div>

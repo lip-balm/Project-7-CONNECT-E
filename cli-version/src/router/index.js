@@ -7,9 +7,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
-    // meta: {
-    //   requiresAuth: false
-    // }
   },
   {
     path: '/forum',
@@ -18,13 +15,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ForumView.vue'),  
-
-    // beforeEach: (to, from, next) => { 
-    //   if (!token) {
-    //     return { name: 'home'};
-    //   } next ()
-    // }
-
   },
   {
     path: '/profile',
@@ -33,9 +23,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ProfileView.vue'),
-    // meta: {
-    //   requiresAuth: true
-    // }
   }
 ]
 
@@ -44,13 +31,22 @@ const router = createRouter({
   routes
 })
 
+// original
+// router.beforeEach((to, from, next) => {
+//   console.log('router token check', store.state);
+//   if ((to.name !== 'home' && !store.state.token)) {
+//       next('/');
+//   }
+//   else next()
+// });
+
+// test
 router.beforeEach((to, from, next) => {
   console.log('router token check', store.state);
-  if (to.name !== 'home' && !store.state.token) {
+  if ((to.name !== 'home' && !store.state.token)) {
       next('/');
   }
   else next()
 });
-
 
 export default router

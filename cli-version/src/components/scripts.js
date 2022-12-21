@@ -117,3 +117,33 @@ export default {
 // .then(data => console.log('all comments', data))
 // .catch(err => console.log(err.message))
 // },
+
+
+// this is the whole menthod to very last {
+
+  // methods: {
+  //   usersignin: function () {
+  //     fetch('http://localhost:3000/api/auth/signin', {
+  //       method: 'POST',
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: JSON.stringify({
+  //         employeeID: this.employeeID,
+  //         password: this.password,
+  //         name: this.name
+  //       })
+  //     })
+  //         .then(res => res.json())
+  //         .then(data => {
+  //           console.log(data);
+  //           this.$store.dispatch('setEmployeeId', data.employeeID);
+  //           this.$store.dispatch('setToken', data.token);
+  //           this.$store.dispatch('setName', data.name);
+  //           this.$router.push({name: 'forum'})
+  //         })
+  //         .catch(error => {
+  //           this.error = error;
+  //           console.log(error);
+  //         });
+  //   },
+  // }
+  // }

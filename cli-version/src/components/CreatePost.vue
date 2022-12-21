@@ -1,5 +1,5 @@
 <template>
-  <form id="uploadForm" enctype="multipart/form-data">
+  <form id="uploadForm" @submit.prevent="onSubmit" enctype="multipart/form-data">
       <label>Title<input v-model="title" class="textbox" required></label>
       <label>Description <textarea v-model="description" class="textboxDesc" required> </textarea></label>
       <label>Image <input type="file" @change="ifImgAdded"></label>   then add it to payload then append it to the body/form data and backend needs to accept 
@@ -15,7 +15,6 @@ export default {
       addedPost: {
         employeeID: '',
         date: '',
-        name: '',
         postID: '',
         title: '',
         description: '',
@@ -39,7 +38,6 @@ export default {
           },
           body: JSON.stringify({
             employeeID: this.$store.state.employeeId,
-            name:  'add post checking name',
             title: this.title,
             description: this.description,
             imageURL: this.imageURL,
@@ -47,9 +45,14 @@ export default {
         })
            .then(response => response.json())
            .then(data => {
-              console.log(data);
-              this.$router.push({name: 'forum'})
-              })
+            if (this.title !== 'undefined' && this.description !== 'undefined') {
+              console.log('post data1', this.title),
+              console.log('post data2', data.title),
+              alert('Success! Click See All Posts to see your new post.')
+            } else {
+              alert('Please add both a title and desciption. Images are optional!');
+            }
+            })
            .then(json => {this.addedPost = json.data},)
            .catch(error => {
              this.error = error;

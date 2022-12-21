@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/profile" @click="userprofile">Profile</router-link> |
+    <router-link to="/profile">Profile</router-link> |
     <router-link to="/forum">Employee Forum</router-link>
   </nav>
       <img alt="Groupomania logo" src="./assets/images/icon-above-font.png">
