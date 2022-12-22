@@ -24,41 +24,47 @@ export default {
   },
   
   methods: {
-    ifImgAdded(event) {
-       this.imageURL = event.target.files[0]
-       console.log(event.target.files[0]);
-    },
-
-    addPost: function () {
-        fetch('http://localhost:3000/api/auth/forum', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + this.$store.state.token,
-          },
-          body: JSON.stringify({
-            employeeID: this.$store.state.employeeId,
-            title: this.title,
-            description: this.description,
-            imageURL: this.imageURL,
-        })
-        })
-           .then(response => response.json())
-           .then(data => {
-            if (data.title !='' && data.description !='') {
-              console.log('post data1', this.title),
-              console.log('post data2', data.title),
-              alert('Success :) Click See All Posts to see your new post.')
-            } else {
-              alert('Please add both a title and desciption :( Images are optional.');
-            }
-            })
-           .then(json => {this.addedPost = json.data},)
-           .catch(error => {
-             this.error = error;
-          });
+  ifImgAdded(event) {
+    this.imageURL = event.target.files[0]
+    console.log(event.target.files[0]);
   },
-  }
+
+  addPost: function () {
+    const data = {
+      employeeID: this.$store.state.employeeId,
+      title: this.title,
+      description: this.description,
+    };
+    const formData = new FormData();
+    if (this.imageURL != null) {
+      formData.append('image', this.imageURL, this.imageURL.name);
+    }
+    formData.append('data', JSON.stringify(data));
+    fetch('http://localhost:3000/api/auth/forum', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Authorization': 'Bearer ' + this.$store.state.token,
+      },
+      body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+          if (data.title !='' && data.description !='') {
+            console.log('post data1', this.title),
+                console.log('post data2', data.title),
+                alert('Success :) Click See All Posts to see your new post.')
+          } else {
+            alert('Please add both a title and description :( Images are optional.');
+          }
+        })
+        .then(json => {this.addedPost = json.data},)
+        .catch(error => {
+          console.log('ERROR!!!', error);
+          this.error = error;
+        });
+  },
+}
 }
 </script>
 

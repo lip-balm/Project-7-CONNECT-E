@@ -3,34 +3,32 @@
     <div class="postCard" v-for="post in posts" :key="post.postID" > 
       <section class="postCardTopDetails">
         <section class="topDetails">
-        <p class="postAuthor"> Employee ID {{ post.employeeID }} said </p> 
+        <p class="postAuthor"> Employee ID {{ post.employeeID }} said: </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="smallButton" @click="markAsRead">Read</button>
+        <button class="smallButton" @click="markAsRead" v-bind:class="{ 'read' : readPost }">Read</button>
       </section>
       <section class="postContent">
         <p class="postTitle"> {{ post.title }} </p>
         <p class="postDescription"> {{ post.description }} </p>
-        <img v-if="post.imageURL != null" :src="post.imageURL">
+        <img class="postimgs" v-if="post.imageURL != null" :src="post.imageURL">
       </section>
       <section class="postComment">
         <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
         <input class="textbox" placeholder="start typing here..." v-model="comment">
         <button @click="addComment(post.postID)">Comment</button>
       </section>
-      <section class="allComments"  v-for="comment in comments" :key="comment.commentID" >
+      <section class="allComments"  v-for="comment in comments.filter(comment => comment.postID == post.postID)" :key="comment.commentID">
       <section>
-        <p class="commentAuthor">Employee ID {{ comment.employeeID }} commented </p>
+        <p class="commentAuthor">Employee ID {{ comment.employeeID }} commented: </p>
         <p class="commentDate"> {{ comment.date }} </p>
       </section>
-        <button @click="commentDelete" class="smallButton" v-if="this.$store.state.employeeId === comment.employeeID">Delete</button>
+        <button @click="commentDelete(comment.commentID)" class="smallButton" v-if="this.$store.state.employeeId === comment.employeeID">Delete</button>
         <p class="commentText"> {{ comment.comment }} </p>
       </section>
     </div>
   </div>
 </template>
-
-in post db add another key boolean flag like read, set to false when clicked
 
 <script>
 export default {
@@ -40,6 +38,7 @@ export default {
     return {
       posts: [],
       comments: [],
+      readPost: false,
     }
   },
 
@@ -101,7 +100,6 @@ export default {
           },
           body: JSON.stringify({
             employeeID: this.$store.state.employeeId,
-            name:  'add comment checking name',
             comment: this.comment,
         })
         })
@@ -113,17 +111,48 @@ export default {
              this.error = error;
           });
   },
-
   
+    commentDelete(commentID) {
+      console.log('checking for comment delete event', commentID),
+      fetch('http://localhost:3000/api/auth/forum/post/deleteComment', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
+      body: JSON.stringify({
+            commentID: commentID,
+        })
+            })
+        .then(res => res.json())
+        .then(data => console.log(data)) 
+        .catch(error => {this.error = error;
+                        console.log(error);
+        });
+    },
+
+    markAsRead(postID) {
+        fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/read', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.$store.state.token,
+          },
+          body: JSON.stringify({
+            employeeID: this.$store.state.employeeId,
+            readPost: true,
+        })
+        })
+           .then(response => response.json())
+           .then(data => console.log(data),
+            )
+           .then(json => json.data)
+           .catch(error => {
+             this.error = error;
+          });
   },
 
-  computed: {
-    commentMatches(){
-        return this.comments.filter(post => this.post.includes(post.postID))
-    }
-  }
-
-
+  },
 }
 </script>
 
@@ -146,6 +175,7 @@ export default {
   border-color: #fd2d01;
   border-radius: 10px;
   width: 45%;
+  height: 100%;
 }
 
 .postAuthor, .postDate, .commentDate, .commentAuthor {
@@ -180,6 +210,7 @@ export default {
   display: flex;
   flex-direction: row;
   text-align: center;
+  gap: 10px;
 }
 
 .postComment {
@@ -189,7 +220,6 @@ export default {
 
 button {
   color: #fd2d01;
-  border-color: #fd2d01;
   height: 80px;
   width: 80px;
   border-radius: 50%;
@@ -203,6 +233,11 @@ button {
     width: 35px;
     font-size: 10px;
     padding: 0;
+}
+
+.read {
+  color: #fcd4d2;
+  background-color: #fd2d01;
 }
 
 input {
@@ -235,6 +270,18 @@ input {
 
   .postDescription {
     font-size: 14px;
+}
+
+.allComments {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  gap: 10px;
+}
+
+.commentText {
+  margin: 8px
 }
 
 }

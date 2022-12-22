@@ -1,13 +1,12 @@
 const database = require('../database');
 
 exports.addPost = (req, res, next) => {
+    req.body.data = JSON.parse(req.body.data); //parse out the data
     let url = null;
-    console.log('addpostcheck', req.body);
-    console.log('what is the req file1', req.files);
-    if (req.file) {url = `${req.protocol} + '://' + ${req.get('host')} + '/images/' + ${req.file.filename}`};
-    console.log('what is the req file2', req.file);
-    console.log('checking img url', url);
-    const addAPost = `INSERT INTO posts (employeeID, name, title, description, imageURL) VALUES ('${req.body.employeeID}', '${req.body.name}', '${req.body.title}', '${req.body.description}', '${url}')` ;
+    if (req.file) {
+        url = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`// check for proper formatting
+    }
+    const addAPost = `INSERT INTO posts (employeeID, name, title, description, imageURL) VALUES ('${req.body.data.employeeID}', '${req.body.data.name}', '${req.body.data.title}', '${req.body.data.description}', '${url}')` ;
     database.query(addAPost, function (err, result) {
         if (err) throw err;
         res.status(201).json({message: 'Post created successfully!'});
@@ -45,13 +44,19 @@ exports.deletePost = (req, res, next) => {
     const postDelete = `DELETE FROM posts WHERE postID = '${req.body.postID}'`;
     database.query(postDelete, function (err, result) {
         if (err) {throw err}
-        let allPosts; 
-        const getPosts = `SELECT * FROM posts`;
-        database.query(getPosts, function (err, result) {
-            if (err) {throw err}
-            return allPosts = result
-        })
-        return res.status(200).json(allPosts)
+        // let allPosts; 
+        // const getPosts = `SELECT * FROM posts`;
+        // database.query(getPosts, function (err, result) {
+        //     if (err) {throw err}
+        //     return allPosts = result
+        // })
+        return res.status(200).json(result)
+    })
+
+    const commentDelete = `DELETE FROM comments WHERE postID = '${req.body.postID}'`;
+    database.query(commentDelete, function (err, result) {
+        if (err) {throw err}
+        return res.status(200).json(result)
     })
 };
 
@@ -80,3 +85,21 @@ exports.getAllComments = (req, res, next) => {
         return res.status(200).json(result)
     })
 };
+
+exports.deleteComment = (req, res, next) => {
+    console.log('comment delete check', req.body);
+    const commentDelete = `DELETE FROM comments WHERE commentID = '${req.body.commentID}'`;
+    database.query(commentDelete, function (err, result) {
+        if (err) {throw err}
+        return res.status(200).json(result)
+    })
+};
+
+exports.readPost = (req, res, next) => {
+    console.log('checking read status', req.body)
+    const readPost = `INSERT INTO posts (readBy) VALUES ('${req.body.employeeID}') WHERE postID = '${req.body.postID}'` ;
+    database.query(readPost, function (err, result) {
+        if (err) throw err;
+        res.status(201).json({message: 'Marked as read'});
+    }
+)};

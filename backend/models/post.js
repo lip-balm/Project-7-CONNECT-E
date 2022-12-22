@@ -35,6 +35,10 @@ Post.init({
         type: DataTypes.STRING,
         allowNull: true,
     },
+    readBy: {
+        type: DataTypes.JSON,
+        allowNull: true,
+    }
 },
     {
         sequelize,

@@ -4,7 +4,6 @@ const User = require('../models/user');
 const database = require('../database');
 // const fs = require('fs');
 
-
 exports.signUp = (req, res, next) => {
     console.log(req.body);
     const employeeIDCheck = `SELECT * FROM users WHERE employeeID = '${req.body.employeeID}'`;
@@ -100,11 +99,11 @@ exports.deleteProfile = (req, res, next) => {
         return res.status(200).json(result)
     })
 
-    // delete their posts too
-    const postsDelete = `DELETE FROM posts WHERE employeeID = '${req.params.employeeID}'`;
-    database.query(postsDelete, function (err, result) {
-        if (err) {throw err}
-        return res.status(200).json(result)
-        })
+//     // delete their posts too
+//     const postsDelete = `DELETE FROM posts WHERE employeeID = '${req.params.employeeID}'`;
+//     database.query(postsDelete, function (err, result) {
+//         if (err) {throw err}
+//         return res.status(200).json(result)
+//         })
 
 }

@@ -1,9 +1,9 @@
 <template>
   <h2>Looking for someone's profile? Search their employee ID below!</h2>
-  <div class="search">
-    <input class="IDbox" placeholder="please enter a 6-digit employee ID" v-model="userInfo">
+  <form class="search" @submit.prevent="onSubmit">
+    <input class="IDbox" placeholder="please enter a 6-digit employee ID" v-model="wantedEmployeeID">
     <button @click="getSomeonesProfile">Get Profile</button>
-  </div>
+  </form>
   <div v-if="display">
     <p class='wantedName'> <span>Name: {{ userInfo.name }}</span> <span> Employee ID: {{ userInfo.employeeID }} </span> </p>
     <p id='bioField'> About Me: {{ userInfo.bio }} </p>
@@ -19,6 +19,7 @@ export default {
 
   data() {
     return {
+      wantedEmployeeID: '',
       userInfo: '',
       display: false,
       error: '',
@@ -27,7 +28,7 @@ export default {
 
   methods: {
     getSomeonesProfile: function() {
-      fetch('http://localhost:3000/api/auth/profile/' + this.userInfo, {
+      fetch('http://localhost:3000/api/auth/profile/' + this.wantedEmployeeID, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
