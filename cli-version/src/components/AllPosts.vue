@@ -6,12 +6,12 @@
         <p class="postAuthor"> Employee ID {{ post.employeeID }} said: </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="smallButton" @click="markAsRead" v-bind:class="{ 'read' : readPost }">Read</button>
+        <button class="smallButton" @click="markAsRead(post.postID)" v-bind:class="{ 'read' : readPost }">Read</button>
       </section>
       <section class="postContent">
         <p class="postTitle"> {{ post.title }} </p>
         <p class="postDescription"> {{ post.description }} </p>
-        <img class="postimgs" v-if="post.imageURL != null" :src="post.imageURL">
+        <img class="postimgs" v-if="post.imageURL != 'null'" :src="post.imageURL">
       </section>
       <section class="postComment">
         <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
@@ -38,7 +38,6 @@ export default {
     return {
       posts: [],
       comments: [],
-      readPost: false,
     }
   },
 

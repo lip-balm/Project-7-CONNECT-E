@@ -97,7 +97,7 @@ exports.deleteComment = (req, res, next) => {
 
 exports.readPost = (req, res, next) => {
     console.log('checking read status', req.body)
-    const readPost = `INSERT INTO posts (readBy) VALUES ('${req.body.employeeID}') WHERE postID = '${req.body.postID}'` ;
+    const readPost = `UPDATE posts SET readBy = '${req.body.employeeID}' WHERE postID = ${req.params.postID}` ;
     database.query(readPost, function (err, result) {
         if (err) throw err;
         res.status(201).json({message: 'Marked as read'});

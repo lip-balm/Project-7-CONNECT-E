@@ -147,3 +147,7 @@ export default {
   //   },
   // }
   // }
+
+  //v-bind:class="post.readBy.includes(this.$store.state.employeeId) ? 'read' : null">Read</button>
+
+  // v-if="(!post.readBy) || (!post.readBy.includes(employeeID))"
