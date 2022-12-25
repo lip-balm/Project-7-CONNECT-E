@@ -95,11 +95,62 @@ exports.deleteComment = (req, res, next) => {
     })
 };
 
+// let currentReadPostsIDs = `SELECT readBy FROM posts WHERE postID = ${req.params.postID}`;
+
+// database.query(currentReadPostsIDs, function (err, result) {
+//     if (err) throw err;
+//     res.status(201).json({message: 'Marked as read'});
+// });
+
+// original
+// exports.readPost = (req, res, next) => {
+//     console.log('checking read status', req.body)
+//     const readPost = `UPDATE posts SET readBy = '${req.body.employeeID}' WHERE postID = ${req.params.postID}` ;
+//     database.query(readPost, function (err, result) {
+//         if (err) throw err;
+//         res.status(201).json({message: 'Marked as read'});
+//     }
+// )};
+
+// test 1
+// exports.readPost = (req, res, next) => {
+//     let IDList;
+
+//     const currentReadPostsIDs = `SELECT readBy FROM posts WHERE postID = ${req.params.postID}`;
+
+//     function getCurrentReadPostsIDs() {
+//         database.query(currentReadPostsIDs, function (err, result) {
+//             if (err)
+//                 throw err;
+//             res.status(201).json(result);
+//         });
+//     }
+
+//     IDList = getCurrentReadPostsIDs();
+
+//     const readPost = `UPDATE posts SET readBy = CONCAT(IDList, '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
+
+//     database.query(readPost, function (err, result) {
+//         if (err) throw err;
+//         res.status(201).json({message: 'Marked as read'});
+//     }
+
+// )};
+
+// test 2
 exports.readPost = (req, res, next) => {
-    console.log('checking read status', req.body)
     const readPost = `UPDATE posts SET readBy = '${req.body.employeeID}' WHERE postID = ${req.params.postID}` ;
     database.query(readPost, function (err, result) {
         if (err) throw err;
         res.status(201).json({message: 'Marked as read'});
     }
 )};
+
+// let currentReadPostsIDs = `SELECT readBy FROM posts WHERE postID = ${req.params.postID}`;
+
+// database.query(currentReadPostsIDs, function (err, result) {
+//     if (err) throw err;
+//     res.status(201).json({message: 'Marked as read'});
+// });
+
+// SELECT readBy FROM posts WHERE postID = ${req.params.postID}, readBy + '${req.body.employeeID}' WHERE postID = ${req.params.postID},

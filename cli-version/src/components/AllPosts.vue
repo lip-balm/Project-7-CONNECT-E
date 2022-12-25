@@ -6,7 +6,8 @@
         <p class="postAuthor"> Employee ID {{ post.employeeID }} said: </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="smallButton" @click="markAsRead(post.postID)" v-bind:class="{ 'read' : readPost }">Read</button>
+        <button class="smallButton" v-if='post.readBy && post.readBy.includes(employeeID)' :class="{ read : readPost }">Read</button>
+        <button class="smallButton" @click="markAsRead(post.postID)" v-else>Unread</button>
       </section>
       <section class="postContent">
         <p class="postTitle"> {{ post.title }} </p>
@@ -180,7 +181,7 @@ export default {
 .postAuthor, .postDate, .commentDate, .commentAuthor {
 // color: #fd2d01;
   text-align: left;
-  margin: 8px 8px 0px 8px;
+  margin: 13px 8px 0px 8px;
 }
 
 .postDate, .commentDate {
@@ -228,8 +229,8 @@ button {
 }
 
 .smallButton {
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     font-size: 10px;
     padding: 0;
 }

@@ -151,3 +151,5 @@ export default {
   //v-bind:class="post.readBy.includes(this.$store.state.employeeId) ? 'read' : null">Read</button>
 
   // v-if="(!post.readBy) || (!post.readBy.includes(employeeID))"
+
+  //         <button class="smallButton" @click="markAsRead(post.postID)" v-bind:class="{ 'read' : readPost }">Read</button>
