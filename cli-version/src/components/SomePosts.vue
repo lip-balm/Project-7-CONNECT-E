@@ -10,7 +10,8 @@
         <p class="postAuthor"> Employee ID {{ post.employeeID }} said: </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="smallButton" @click="markAsRead">Read</button>
+        <button class="smallButton read" v-if="post.readBy && post.readBy.includes(this.$store.state.employeeId)">Read</button>
+        <button class="smallButton" @click="markAsRead(post.postID)" v-else>Mark as Read</button>
       </section>
       <section class="postContent">
         <p class="postTitle"> {{ post.title }} </p>
@@ -32,6 +33,7 @@
       </section>
     </div>
   </div>
+  <button @click="goToTop" id="topButton" v-scroll="onScroll">Back to Top</button>
 </template>
 
 <script>
@@ -77,6 +79,11 @@ export default {
     .then(data => console.log('some posts', data))
     .catch(err => console.log(err.message))
   },
+
+   goToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  },
 },
 }
 </script>
@@ -89,13 +96,13 @@ export default {
 
 button {
   color: #fd2d01;
-  border-color: #fd2d01;
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
   border: none;
   background-color: #fcd4d2;
   margin: 10px;
+  font-size: 13px;
 }
 
 .IDbox {
@@ -115,6 +122,14 @@ button {
   row-gap: 50px;
 }
 
+.read {
+  color: #fd2d01;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #fd2d01;
+}
+
 .postCard {
   margin-top: 30px;
   border: 1px;
@@ -122,6 +137,7 @@ button {
   border-color: #fd2d01;
   border-radius: 10px;
   width: 45%;
+  height: 100%;
 }
 
 .postAuthor, .postDate, .commentDate, .commentAuthor {
@@ -146,7 +162,7 @@ button {
 
 .postContent, .postComment, .allComments {
   border: 1px;
-  border-style: solid;
+  border-style: dashed;
   border-color: #fd2d01;
   border-radius: 10px;
   margin: 0px 10px 10px 10px;
@@ -166,10 +182,22 @@ button {
 }
 
 .smallButton {
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 45px;
     font-size: 10px;
     padding: 0;
+    border-radius: 10px;
+}
+
+#topButton {
+  bottom: 10px;
+  position: fixed;
+  color: #ffffff;
+  background-color: #fd2d01;
+  height: 60px;
+  width: 60px;
+  padding-top: 5px;
+  font-size: 12px;
 }
 
 .postComment {
@@ -185,7 +213,6 @@ button {
 .textbox {
   border-style: none;
   width: 40%;
-  height: 100px;
   margin: 0;
 }
 
@@ -207,19 +234,24 @@ button {
 
   .postDescription {
     font-size: 14px;
-}
+  }
 
-.allComments {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  text-align: center;
-  gap: 10px;
-}
+  #topButton {
+    bottom: 10px;
+    right: 40%;
+  }
 
-.commentText {
-  margin: 8px
-}
+  .allComments {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .commentText {
+    margin: 8px
+  }
 
 }
 

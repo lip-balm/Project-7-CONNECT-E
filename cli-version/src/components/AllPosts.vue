@@ -29,6 +29,7 @@
       </section>
     </div>
   </div>
+  <button @click="goToTop" id="topButton" v-scroll="onScroll">Back to Top</button>
 </template>
 
 <script>
@@ -153,6 +154,10 @@ export default {
           });
   },
 
+  goToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  },
   },
 }
 </script>
@@ -201,7 +206,7 @@ export default {
 
 .postContent, .postComment, .allComments {
   border: 1px;
-  border-style: solid;
+  border-style: dashed;
   border-color: #fd2d01;
   border-radius: 10px;
   margin: 0px 10px 10px 10px;
@@ -261,6 +266,17 @@ input {
   justify-content: space-between;
 }
 
+#topButton {
+  bottom: 10px;
+  position: fixed;
+  color: #ffffff;
+  background-color: #fd2d01;
+  height: 60px;
+  width: 60px;
+  padding-top: 5px;
+  font-size: 12px;
+}
+
 @media all and (max-width: 480px) {
   #allPostsShown {
     flex-direction: column;
@@ -285,6 +301,11 @@ input {
   flex-direction: row;
   flex-wrap: wrap;
   text-align: center;
+}
+
+#topButton {
+  bottom: 10px;
+  right: 40%;
 }
 
 .commentText {
