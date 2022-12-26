@@ -53,11 +53,11 @@ exports.deletePost = (req, res, next) => {
         return res.status(200).json(result)
     })
 
-    const commentDelete = `DELETE FROM comments WHERE postID = '${req.body.postID}'`;
-    database.query(commentDelete, function (err, result) {
-        if (err) {throw err}
-        return res.status(200).json(result)
-    })
+    // const commentDelete = `DELETE FROM comments WHERE postID = '${req.body.postID}'`;
+    // database.query(commentDelete, function (err, result) {
+    //     if (err) {throw err}
+    //     return res.status(200).json(result)
+    // })
 };
 
 // exports.addComment = (req, res, next) => {
@@ -115,9 +115,7 @@ exports.deleteComment = (req, res, next) => {
 // test 1
 // exports.readPost = (req, res, next) => {
 //     let IDList;
-
 //     const currentReadPostsIDs = `SELECT readBy FROM posts WHERE postID = ${req.params.postID}`;
-
 //     function getCurrentReadPostsIDs() {
 //         database.query(currentReadPostsIDs, function (err, result) {
 //             if (err)
@@ -125,32 +123,48 @@ exports.deleteComment = (req, res, next) => {
 //             res.status(201).json(result);
 //         });
 //     }
-
 //     IDList = getCurrentReadPostsIDs();
 
 //     const readPost = `UPDATE posts SET readBy = CONCAT(IDList, '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
-
 //     database.query(readPost, function (err, result) {
 //         if (err) throw err;
 //         res.status(201).json({message: 'Marked as read'});
 //     }
-
 // )};
 
 // test 2
+// exports.readPost = (req, res, next) => {
+//     const readPost = `UPDATE posts SET readBy = CONCAT(SELECT readBy FROM posts WHERE postID = ${req.params.postID}, ',','${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
+//     database.query(readPost, function (err, result) {
+//         if (err) throw err;
+//         res.status(201).json({message: 'Marked as read'});
+//     }
+// )};
+
+//test 3
+// exports.readPost = (req, res, next) => {
+//     const readPost = `UPDATE posts SET readBy = CONCAT(readBy, ',', '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
+//     database.query(readPost, function (err, result) {
+//         if (err) throw err;
+//         res.status(201).json({message: 'Marked as read'});
+//     }
+// )};
+
+//test 4
+// exports.readPost = (req, res, next) => {
+//     const readPost = `UPDATE posts SET readBy = CONCAT(COALESCE(readBy,''), ',', '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
+//     database.query(readPost, function (err, result) {
+//         if (err) throw err;
+//         res.status(201).json({message: 'Marked as read'});
+//     }
+// )};
+
+//test 5
 exports.readPost = (req, res, next) => {
-    const readPost = `UPDATE posts SET readBy = '${req.body.employeeID}' WHERE postID = ${req.params.postID}` ;
+    const readPost = `UPDATE posts SET readBy = CONCAT_WS(',', readBy, '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
     database.query(readPost, function (err, result) {
         if (err) throw err;
         res.status(201).json({message: 'Marked as read'});
     }
 )};
 
-// let currentReadPostsIDs = `SELECT readBy FROM posts WHERE postID = ${req.params.postID}`;
-
-// database.query(currentReadPostsIDs, function (err, result) {
-//     if (err) throw err;
-//     res.status(201).json({message: 'Marked as read'});
-// });
-
-// SELECT readBy FROM posts WHERE postID = ${req.params.postID}, readBy + '${req.body.employeeID}' WHERE postID = ${req.params.postID},

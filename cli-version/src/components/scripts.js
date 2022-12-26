@@ -153,3 +153,10 @@ export default {
   // v-if="(!post.readBy) || (!post.readBy.includes(employeeID))"
 
   //         <button class="smallButton" @click="markAsRead(post.postID)" v-bind:class="{ 'read' : readPost }">Read</button>
+
+  // <button class="smallButton" v-if='post.readBy && post.readBy.includes(employeeID)' :class="{ read : readPost }">Read</button>
+  // <button class="smallButton" @click="markAsRead(post.postID)" v-else>Unread</button>
+
+ 
+  // <button class="smallButton" v-if='post.readBy && post.readBy.includes(employeeID)' :class="{ read : readPost }">Unread</button>
+  // <button class="smallButton" @click="markAsRead(post.postID)" v-else>Read</button>

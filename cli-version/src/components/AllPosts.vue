@@ -6,8 +6,8 @@
         <p class="postAuthor"> Employee ID {{ post.employeeID }} said: </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="smallButton" v-if='post.readBy && post.readBy.includes(employeeID)' :class="{ read : readPost }">Read</button>
-        <button class="smallButton" @click="markAsRead(post.postID)" v-else>Unread</button>
+        <button class="smallButton read" v-if="post.readBy && post.readBy.includes(this.$store.state.employeeId)">Read</button>
+        <button class="smallButton" @click="markAsRead(post.postID)" v-else>Mark as Read</button>
       </section>
       <section class="postContent">
         <p class="postTitle"> {{ post.title }} </p>
@@ -39,6 +39,7 @@ export default {
     return {
       posts: [],
       comments: [],
+      readPost: false,
     }
   },
 
@@ -206,11 +207,14 @@ export default {
   margin: 0px 10px 10px 10px;
 }
 
+.postComment {
+    justify-content: space-between
+}
+
 .allComments {
   display: flex;
   flex-direction: row;
   text-align: center;
-  gap: 10px;
 }
 
 .postComment {
@@ -220,30 +224,34 @@ export default {
 
 button {
   color: #fd2d01;
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
   border: none;
   background-color: #fcd4d2;
   margin: 10px;
+  font-size: 13px;
 }
 
 .smallButton {
     height: 40px;
-    width: 40px;
+    width: 45px;
     font-size: 10px;
     padding: 0;
+    border-radius: 10px;
 }
 
 .read {
-  color: #fcd4d2;
-  background-color: #fd2d01;
+  color: #fd2d01;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #fd2d01;
 }
 
 input {
   border-style: none;
   width: 40%;
-  height: 100px;
   margin: 0;
 }
 
@@ -277,7 +285,6 @@ input {
   flex-direction: row;
   flex-wrap: wrap;
   text-align: center;
-  gap: 10px;
 }
 
 .commentText {

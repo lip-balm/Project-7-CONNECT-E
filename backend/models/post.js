@@ -35,7 +35,11 @@ Post.init({
         type: DataTypes.STRING,
         allowNull: true,
     },
-    readBy: {
+    readby: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    postreadby: {
         type: DataTypes.JSON,
         allowNull: true,
     }
