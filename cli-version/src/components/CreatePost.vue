@@ -53,7 +53,7 @@ export default {
             console.log('post data1', this.title),
                 console.log('post data2', data.title),
                 alert('Success :) Click See All Posts to check out your new post.')
-                this.$router.push({name: 'forumtest'})
+                this.$router.push({name: 'forum'})
         })
         .then(json => {this.addedPost = json.data},)
         .catch(error => {

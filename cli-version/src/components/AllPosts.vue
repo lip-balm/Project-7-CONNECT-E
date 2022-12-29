@@ -130,6 +130,7 @@ export default {
             })
         .then(res => res.json())
         .then(data => console.log(data),
+          this.comments.splice(commentID),
           alert('Your comment has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
