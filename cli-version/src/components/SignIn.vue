@@ -23,7 +23,6 @@ export default {
       userInfo: {
         employeeID: '',
         password: '',
-        name: '',
       }
     }
   },
@@ -37,7 +36,6 @@ export default {
         body: JSON.stringify({
           employeeID: this.employeeID,
           password: this.password,
-          name: this.name
         })
       })
           .then(res => res.json())
@@ -46,7 +44,6 @@ export default {
               console.log(data);
               this.$store.dispatch('setEmployeeId', data.employeeID);
               this.$store.dispatch('setToken', data.token);
-              this.$store.dispatch('setName', data.name);
               this.$router.push({name: 'forum'})
             } else {
               alert('Incorrect or empty log in details! If needed, please contact the tech department to reset your password.');

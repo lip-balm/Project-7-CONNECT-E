@@ -1,10 +1,10 @@
 const database = require('../database');
 
 exports.addPost = (req, res, next) => {
-    req.body.data = JSON.parse(req.body.data); //parse out the data
+    req.body.data = JSON.parse(req.body.data); 
     let url = null;
     if (req.file) {
-        url = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`// check for proper formatting
+        url = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     }
     const addAPost = `INSERT INTO posts (employeeID, name, title, description, imageURL) VALUES ('${req.body.data.employeeID}', '${req.body.data.name}', '${req.body.data.title}', '${req.body.data.description}', '${url}')` ;
     database.query(addAPost, function (err, result) {
@@ -19,14 +19,6 @@ exports.getAllPosts = (req, res, next) => {
         if (err) {throw err}
         return res.status(200).json(result)
     })
-
-    // get all the comments too?
-    // const getComments = `SELECT * FROM comments WHERE postID = '${req.params.postID}'`;
-    // database.query(getComments, function (err, result) {
-    //     if (err) {throw err}
-    //     return res.status(200).json(result)
-    // })
-
 };
 
  exports.getUsersPosts = (req, res, next) => {
@@ -41,32 +33,13 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
     console.log('post delete check', req.body);
+    // const postDelete = `DELETE posts, comments FROM posts INNER JOIN comments ON comments.postID = posts.postID WHERE posts.postID = '${req.body.postID}'`;
     const postDelete = `DELETE FROM posts WHERE postID = '${req.body.postID}'`;
     database.query(postDelete, function (err, result) {
         if (err) {throw err}
-        // let allPosts; 
-        // const getPosts = `SELECT * FROM posts`;
-        // database.query(getPosts, function (err, result) {
-        //     if (err) {throw err}
-        //     return allPosts = result
-        // })
         return res.status(200).json(result)
     })
-
-    // const commentDelete = `DELETE FROM comments WHERE postID = '${req.body.postID}'`;
-    // database.query(commentDelete, function (err, result) {
-    //     if (err) {throw err}
-    //     return res.status(200).json(result)
-    // })
 };
-
-// exports.addComment = (req, res, next) => {
-//     const addComment = `INSERT INTO comments (employeeID, name, postID, comment) VALUES ('${req.body.employeeID}', '${req.body.name}', '${req.params.postID}', '${req.body.comment}')` ;
-//     database.query(addComment, function (err, result) {
-//         if (err) throw err;
-//         res.status(201).json({message: 'Comment added successfully!'});
-//     }
-// )};
 
 exports.addComment = (req, res, next) => {
     console.log('what does the comment say', req.body)
@@ -95,71 +68,6 @@ exports.deleteComment = (req, res, next) => {
     })
 };
 
-// let currentReadPostsIDs = `SELECT readBy FROM posts WHERE postID = ${req.params.postID}`;
-
-// database.query(currentReadPostsIDs, function (err, result) {
-//     if (err) throw err;
-//     res.status(201).json({message: 'Marked as read'});
-// });
-
-// original
-// exports.readPost = (req, res, next) => {
-//     console.log('checking read status', req.body)
-//     const readPost = `UPDATE posts SET readBy = '${req.body.employeeID}' WHERE postID = ${req.params.postID}` ;
-//     database.query(readPost, function (err, result) {
-//         if (err) throw err;
-//         res.status(201).json({message: 'Marked as read'});
-//     }
-// )};
-
-// test 1
-// exports.readPost = (req, res, next) => {
-//     let IDList;
-//     const currentReadPostsIDs = `SELECT readBy FROM posts WHERE postID = ${req.params.postID}`;
-//     function getCurrentReadPostsIDs() {
-//         database.query(currentReadPostsIDs, function (err, result) {
-//             if (err)
-//                 throw err;
-//             res.status(201).json(result);
-//         });
-//     }
-//     IDList = getCurrentReadPostsIDs();
-
-//     const readPost = `UPDATE posts SET readBy = CONCAT(IDList, '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
-//     database.query(readPost, function (err, result) {
-//         if (err) throw err;
-//         res.status(201).json({message: 'Marked as read'});
-//     }
-// )};
-
-// test 2
-// exports.readPost = (req, res, next) => {
-//     const readPost = `UPDATE posts SET readBy = CONCAT(SELECT readBy FROM posts WHERE postID = ${req.params.postID}, ',','${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
-//     database.query(readPost, function (err, result) {
-//         if (err) throw err;
-//         res.status(201).json({message: 'Marked as read'});
-//     }
-// )};
-
-//test 3
-// exports.readPost = (req, res, next) => {
-//     const readPost = `UPDATE posts SET readBy = CONCAT(readBy, ',', '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
-//     database.query(readPost, function (err, result) {
-//         if (err) throw err;
-//         res.status(201).json({message: 'Marked as read'});
-//     }
-// )};
-
-//test 4
-// exports.readPost = (req, res, next) => {
-//     const readPost = `UPDATE posts SET readBy = CONCAT(COALESCE(readBy,''), ',', '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
-//     database.query(readPost, function (err, result) {
-//         if (err) throw err;
-//         res.status(201).json({message: 'Marked as read'});
-//     }
-// )};
-
-//test 5
 exports.readPost = (req, res, next) => {
     const readPost = `UPDATE posts SET readBy = CONCAT_WS(',', readBy, '${req.body.employeeID}') WHERE postID = ${req.params.postID}` ;
     database.query(readPost, function (err, result) {
@@ -168,3 +76,4 @@ exports.readPost = (req, res, next) => {
     }
 )};
 
+// Does anyone have a favorite 

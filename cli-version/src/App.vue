@@ -1,10 +1,11 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
+    <router-link to="/home">Home</router-link> |
     <router-link to="/profile">Profile</router-link> |
-    <router-link to="/forum">Employee Forum</router-link>
+    <router-link to="/forum">Employee Forum</router-link> | 
+    <router-link to="/create">Create a Post</router-link>
   </nav>
-      <img alt="Groupomania logo" src="./assets/images/icon-above-font.png">
+      <img id="logo" alt="Groupomania logo" src="./assets/images/icon-above-font.png">
   <router-view/>
 </template>
 
@@ -34,9 +35,15 @@ nav {
   }
 }
 
-img {
-    width: 200px;
+#logo {
+    width: 180px;
+    margin-bottom: 20px;
   }
+
+img {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
 
 button {
   font-size: 15px;

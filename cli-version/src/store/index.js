@@ -28,10 +28,6 @@ export default createStore({
       localStorage.clear()
       location.reload()
     },
-    setName(state, name) {
-      localStorage.setItem('name', JSON.stringify(name));
-      state.name = name;
-    },
   },
   actions: {
     setToken(context, token) {
@@ -43,9 +39,9 @@ export default createStore({
     setName(context, name) {
       context.commit('setName', name)
     },
-    getPostsAgain(context) {
-      context.commit('getPostsAgain')
-    }
+    // getPostsAgain(context) {
+    //   context.commit('getPostsAgain')
+    // }
   },
   modules: {
   }

@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const database = require('../database');
-// const fs = require('fs');
 
 exports.signUp = (req, res, next) => {
     console.log(req.body);
@@ -61,7 +60,7 @@ exports.signIn = (req, res, next) => {
                 }
             )
         }
-    })};
+})};
 
 exports.getProfile = (req, res, next) => {
     const employeeIDCheck = `SELECT name, employeeID, bio FROM users WHERE employeeID = '${req.params.employeeID}'`;
@@ -77,33 +76,13 @@ exports.getProfile = (req, res, next) => {
     })
 };
 
-// exports.getOneProfile = (req, res, next) => {
-//     const employeeIDCheck = `SELECT name, employeeID, bio FROM users WHERE employeeID = '${req.params.employeeID}'`;
-//         database.query(employeeIDCheck, function (err, result) {
-//             if (err) {
-//                 throw err
-//               } else if (result.length !== 0){
-//                 return res.status(200).json(result[0]);
-//               } else {
-//               console.log(res);
-//                 return res.status(401).json({error: 'No result found'});
-//             }
-//     })
-// };
-
 exports.deleteProfile = (req, res, next) => {
-    // delete user
-    const profileDelete = `DELETE FROM users WHERE employeeID = '${req.params.employeeID}'`;
+    // delete user & their posts
+    const profileDelete = `DELETE users, posts, comments FROM users INNER JOIN posts ON posts.employeeID = users.employeeID INNER JOIN comments ON comments.employeeID = users.employeeID WHERE users.employeeID = '${req.params.employeeID}'`;
     database.query(profileDelete, function (err, result) {
         if (err) {throw err}
         return res.status(200).json(result)
     })
-
-//     // delete their posts too
-//     const postsDelete = `DELETE FROM posts WHERE employeeID = '${req.params.employeeID}'`;
-//     database.query(postsDelete, function (err, result) {
-//         if (err) {throw err}
-//         return res.status(200).json(result)
-//         })
-
 }
+
+// 100135 testing36 angela

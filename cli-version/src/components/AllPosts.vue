@@ -6,21 +6,21 @@
         <p class="postAuthor"> Employee ID {{ post.employeeID }} said: </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="smallButton read" v-if="post.readBy && post.readBy.includes(this.$store.state.employeeId)">Read</button>
-        <button class="smallButton" @click="markAsRead(post.postID)" v-else>Mark as Read</button>
+        <button class="readButton read" v-if="post.readBy && post.readBy.includes(this.$store.state.employeeId)">Read</button>
+        <button class="readButton" @click="markAsRead(post.postID)" v-else>Mark as Read</button>
       </section>
       <section class="postContent">
-        <p class="postTitle"> {{ post.title }} </p>
-        <p class="postDescription"> {{ post.description }} </p>
+        <p class="postTitle" v-if="post.title !='undefined'"> {{ post.title }} </p>
+        <p class="postDescription" v-if="post.description !='undefined'"> {{ post.description }} </p>
         <img class="postimgs" v-if="post.imageURL != 'null'" :src="post.imageURL">
       </section>
       <section class="postComment">
         <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
-        <input class="textbox" placeholder="start typing here..." v-model="comment">
+        <textarea class="textbox" placeholder="start typing here..." v-model="comment"></textarea>
         <button @click="addComment(post.postID)">Comment</button>
       </section>
       <section class="allComments"  v-for="comment in comments.filter(comment => comment.postID == post.postID)" :key="comment.commentID">
-      <section>
+      <section class="commentorDetails">
         <p class="commentAuthor">Employee ID {{ comment.employeeID }} commented: </p>
         <p class="commentDate"> {{ comment.date }} </p>
       </section>
@@ -86,7 +86,8 @@ export default {
         })
             })
         .then(res => res.json())
-        .then(data => console.log(data)) 
+        .then(data => console.log(data),
+            alert('This post has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
         });
@@ -107,6 +108,7 @@ export default {
         })
            .then(response => response.json())
            .then(data => console.log(data),
+                alert('Comment added!')
             )
            .then(json => {this.comments = json.data},)
            .catch(error => {
@@ -127,7 +129,8 @@ export default {
         })
             })
         .then(res => res.json())
-        .then(data => console.log(data)) 
+        .then(data => console.log(data),
+          alert('Your comment has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
         });
@@ -184,10 +187,15 @@ export default {
   height: 100%;
 }
 
-.postAuthor, .postDate, .commentDate, .commentAuthor {
+.postAuthor, .postDate {
 // color: #fd2d01;
   text-align: left;
   margin: 13px 8px 0px 8px;
+}
+
+.commentDate, .commentAuthor {
+  text-align: left;
+  margin: 0px 8px 0px 8px;
 }
 
 .postDate, .commentDate {
@@ -242,6 +250,14 @@ button {
     height: 40px;
     width: 45px;
     font-size: 10px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.readButton {
+    height: 40px;
+    width: 45px;
+    font-size: 10px;
     padding: 0;
     border-radius: 10px;
 }
@@ -254,7 +270,7 @@ button {
   border-color: #fd2d01;
 }
 
-input {
+textarea {
   border-style: none;
   width: 40%;
   margin: 0;
@@ -275,6 +291,15 @@ input {
   width: 60px;
   padding-top: 5px;
   font-size: 12px;
+}
+
+.commentText {
+  width: 80%;
+  padding: 5px;
+}
+
+.commentorDetails {
+  margin: auto;
 }
 
 @media all and (max-width: 480px) {
@@ -310,6 +335,10 @@ input {
 
 .commentText {
   margin: 8px
+}
+
+.smallButton {
+  margin: 10px;
 }
 
 }

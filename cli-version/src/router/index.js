@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import store from '../store'
+// import store from '../store'
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: HomeView,
   },
@@ -23,7 +23,15 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ProfileView.vue'),
-  }
+  },
+  {
+    path: '/create',
+    name: 'create',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/CreatePostTest.vue'),  
+  },
 ]
 
 const router = createRouter({
@@ -40,11 +48,10 @@ const router = createRouter({
 //   else next()
 // });
 
-// test
 router.beforeEach((to, from, next) => {
-  console.log('router token check', store.state);
-  if ((to.name !== 'home' && !store.state.token)) {
-      next('/');
+  // console.log('router token check', store.state);
+  if ((to.name !== 'home' && !localStorage.getItem('token'))) {
+      next('/home');
   }
   else next()
 });

@@ -4,7 +4,7 @@
       <div class="allTheButtons"> 
         <button @click="activeTab = 'AllPosts', getPosts()">See All Posts</button>
         <button @click="activeTab = 'SomePosts'">See Someone's Posts</button>
-        <button @click="activeTab = 'CreatePost'">Create a Post</button>
+        <!--- <button @click="activeTab = 'CreatePost'">Create a Post</button> --->
       </div>
       <component :is="activeTab" />
   </div>
@@ -56,6 +56,10 @@ button {
   border-radius: 50%;
   border: none;
   background-color: #fcd4d2;
+}
+
+h1 {
+  margin-top: -10px;
 }
 
 @media all and (max-width: 480px) {

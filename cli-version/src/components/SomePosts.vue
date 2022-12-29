@@ -10,13 +10,13 @@
         <p class="postAuthor"> Employee ID {{ post.employeeID }} said: </p> 
         <p class="postDate"> {{ post.date }} </p>
         </section>
-        <button class="smallButton read" v-if="post.readBy && post.readBy.includes(this.$store.state.employeeId)">Read</button>
-        <button class="smallButton" @click="markAsRead(post.postID)" v-else>Mark as Read</button>
+        <button class="readButton read" v-if="post.readBy && post.readBy.includes(this.$store.state.employeeId)">Read</button>
+        <button class="readButton" @click="markAsRead(post.postID)" v-else>Mark as Read</button>
       </section>
       <section class="postContent">
         <p class="postTitle"> {{ post.title }} </p>
         <p class="postDescription"> {{ post.description }} </p>
-        <img class="postimgs" v-if="post.imageURL != null" :src="post.imageURL">
+        <img class="postimgs" v-if="post.imageURL != 'null'" :src="post.imageURL">
       </section>
         <section class="postComment">
         <button @click="postDelete(post.postID)" v-if="this.$store.state.employeeId === post.employeeID">Delete Post</button>
@@ -79,12 +79,96 @@ export default {
     .then(data => console.log('some posts', data))
     .catch(err => console.log(err.message))
   },
+  
+    postDelete(postID) {
+      console.log('checking for delete event', postID),
+      fetch('http://localhost:3000/api/auth/forum/post', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
+      body: JSON.stringify({
+            postID: postID,
+        })
+            })
+        .then(res => res.json())
+        .then(data => console.log(data),
+            alert('This post has been deleted.')) 
+        .catch(error => {this.error = error;
+                        console.log(error);
+        });
+    },
 
-   goToTop() {
+    addComment(postID) {
+      console.log('is add comment working', this.comment),
+        fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/addComment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.$store.state.token,
+          },
+          body: JSON.stringify({
+            employeeID: this.$store.state.employeeId,
+            comment: this.comment,
+        })
+        })
+           .then(response => response.json())
+           .then(data => console.log(data),
+                alert('Comment added!')
+            )
+           .then(json => {this.comments = json.data},)
+           .catch(error => {
+             this.error = error;
+          });
+  },
+  
+    commentDelete(commentID) {
+      console.log('checking for comment delete event', commentID),
+      fetch('http://localhost:3000/api/auth/forum/post/deleteComment', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
+      body: JSON.stringify({
+            commentID: commentID,
+        })
+            })
+        .then(res => res.json())
+        .then(data => console.log(data),
+          alert('Your comment has been deleted.')) 
+        .catch(error => {this.error = error;
+                        console.log(error);
+        });
+    },
+
+    markAsRead(postID) {
+        fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/read', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.$store.state.token,
+          },
+          body: JSON.stringify({
+            employeeID: this.$store.state.employeeId,
+            readPost: true,
+        })
+        })
+           .then(response => response.json())
+           .then(data => console.log(data),
+            )
+           .then(json => json.data)
+           .catch(error => {
+             this.error = error;
+          });
+  },
+
+  goToTop() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   },
-},
+  },
 }
 </script>
 
@@ -178,10 +262,17 @@ button {
   display: flex;
   flex-direction: row;
   text-align: center;
-  gap: 10px;
 }
 
 .smallButton {
+    height: 40px;
+    width: 45px;
+    font-size: 10px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.readButton {
     height: 40px;
     width: 45px;
     font-size: 10px;
@@ -216,6 +307,11 @@ button {
   margin: 0;
 }
 
+.commentText {
+  width: 80%;
+  padding: 5px;
+}
+
 @media all and (max-width: 480px) {
   #allPostsShown {
     flex-direction: column;
@@ -246,13 +342,15 @@ button {
     flex-direction: row;
     flex-wrap: wrap;
     text-align: center;
-    gap: 10px;
   }
 
   .commentText {
     margin: 8px
   }
 
+  .smallButton {
+    margin: 10px;
+  }
 }
 
 </style>
