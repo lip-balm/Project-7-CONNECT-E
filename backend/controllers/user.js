@@ -78,11 +78,12 @@ exports.getProfile = (req, res, next) => {
 
 exports.deleteProfile = (req, res, next) => {
     // delete user & their posts
-    const profileDelete = `DELETE users, posts, comments FROM users INNER JOIN posts ON posts.employeeID = users.employeeID INNER JOIN comments ON comments.employeeID = users.employeeID WHERE users.employeeID = '${req.params.employeeID}'`;
+    // const profileDelete = `DELETE FROM users WHERE users.employeeID = '${req.params.employeeID}'`;
+    const profileDelete = `DELETE users, posts FROM users INNER JOIN posts ON posts.employeeID = users.employeeID WHERE users.employeeID = '${req.params.employeeID}'`;
     database.query(profileDelete, function (err, result) {
         if (err) {throw err}
         return res.status(200).json(result)
     })
 }
 
-// 100135 testing36 angela
+// 100150 testing51 angela

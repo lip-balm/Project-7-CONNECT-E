@@ -42,9 +42,9 @@ export default {
       })
            .then(response => response.json())
            .then(data => {
-            if (data.employeeID && data.password) {
+              console.log('sign up 1', data);
+            if (data.message == 'Account created successfully!') {
             alert('Your account has been created! Sign in to start connecting with your colleages.')
-            console.log(data.employeeID);
             this.$store.dispatch('setEmployeeId', data.employeeID);
             console.log('sign up check 1', data.employeeID);
             } else {

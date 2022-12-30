@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue'
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomeView,
   },
@@ -23,14 +23,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ProfileView.vue'),
-  },
-  {
-    path: '/create',
-    name: 'create',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/CreatePostTest.vue'),  
   },
 ]
 
@@ -51,7 +43,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // console.log('router token check', store.state);
   if ((to.name !== 'home' && !localStorage.getItem('token'))) {
-      next('/home');
+      next('/');
   }
   else next()
 });

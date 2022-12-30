@@ -73,6 +73,34 @@ export default {
   },
 
   methods: {
+    getAllPosts() {
+      fetch('http://localhost:3000/api/auth/forum', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
+      })
+    .then(res => res.json())
+    .then(data => this.posts = data)
+    .then(data => console.log('all posts', data))
+    .catch(err => console.log(err.message))
+  },
+
+    getAllComments(postID) {
+      fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/allComments', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
+      })
+    .then(res => res.json())
+    .then(data => this.comments = data)
+    .then(data => console.log('all comments1', data))
+    .catch(err => console.log(err.message))
+    },
+
     postDelete(postID) {
       console.log('checking for delete event', postID),
       fetch('http://localhost:3000/api/auth/forum/post', {
@@ -87,6 +115,7 @@ export default {
             })
         .then(res => res.json())
         .then(data => console.log(data),
+            this.getAllPosts(),
             alert('This post has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
@@ -108,7 +137,9 @@ export default {
         })
            .then(response => response.json())
            .then(data => console.log(data),
-                alert('Comment added!')
+              this.getAllComments(postID),
+              this.comment = '',
+              alert('Comment added!')
             )
            .then(json => {this.comments = json.data},)
            .catch(error => {
@@ -130,7 +161,7 @@ export default {
             })
         .then(res => res.json())
         .then(data => console.log(data),
-          this.comments.splice(commentID),
+          this.getAllComments(),
           alert('Your comment has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
@@ -151,6 +182,7 @@ export default {
         })
            .then(response => response.json())
            .then(data => console.log(data),
+            this.getAllPosts(),
             )
            .then(json => json.data)
            .catch(error => {

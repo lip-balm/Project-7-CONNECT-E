@@ -79,7 +79,7 @@ export default {
     .then(data => console.log('some posts', data))
     .catch(err => console.log(err.message))
   },
-  
+
     postDelete(postID) {
       console.log('checking for delete event', postID),
       fetch('http://localhost:3000/api/auth/forum/post', {
@@ -94,6 +94,7 @@ export default {
             })
         .then(res => res.json())
         .then(data => console.log(data),
+            this.getAllPosts(),
             alert('This post has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
@@ -115,7 +116,9 @@ export default {
         })
            .then(response => response.json())
            .then(data => console.log(data),
-                alert('Comment added!')
+              this.getAllComments(postID),
+              this.comment = '',
+              alert('Comment added!')
             )
            .then(json => {this.comments = json.data},)
            .catch(error => {
@@ -137,6 +140,7 @@ export default {
             })
         .then(res => res.json())
         .then(data => console.log(data),
+          this.getAllComments(),
           alert('Your comment has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
@@ -157,6 +161,7 @@ export default {
         })
            .then(response => response.json())
            .then(data => console.log(data),
+            this.getAllPosts(),
             )
            .then(json => json.data)
            .catch(error => {

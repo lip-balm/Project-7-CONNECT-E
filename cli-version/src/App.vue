@@ -1,9 +1,8 @@
 <template>
   <nav>
-    <router-link to="/home">Home</router-link> |
+    <router-link to="/">Home</router-link> |
     <router-link to="/profile">Profile</router-link> |
-    <router-link to="/forum">Employee Forum</router-link> | 
-    <router-link to="/create">Create a Post</router-link>
+    <router-link to="/forum">Employee Forum</router-link>
   </nav>
       <img id="logo" alt="Groupomania logo" src="./assets/images/icon-above-font.png">
   <router-view/>
@@ -59,6 +58,10 @@ button {
   h1 {
     font-size: 18px;
   }
+
+img {
+  max-width: 92%;
+}
 
   nav {
     padding: 10px;

@@ -5,6 +5,7 @@ export default createStore({
     employeeId:'',
     token:'',
     name: '',
+
   },
   getters: {
     getToken() {
@@ -39,9 +40,6 @@ export default createStore({
     setName(context, name) {
       context.commit('setName', name)
     },
-    // getPostsAgain(context) {
-    //   context.commit('getPostsAgain')
-    // }
   },
   modules: {
   }
