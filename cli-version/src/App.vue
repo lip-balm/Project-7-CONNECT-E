@@ -36,7 +36,6 @@ nav {
 
 #logo {
     width: 180px;
-    margin-bottom: 20px;
   }
 
 img {
@@ -57,10 +56,6 @@ button {
 @media all and (max-width: 480px) {
   h1 {
     font-size: 18px;
-  }
-
-#logo {
-    margin: 10px;
   }
 
 img {

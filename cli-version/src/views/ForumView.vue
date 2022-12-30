@@ -58,10 +58,6 @@ button {
   background-color: #fcd4d2;
 }
 
-h1 {
-  margin-top: -10px;
-}
-
 @media all and (max-width: 480px) {
   .allTheButtons {
     gap: 18px;
