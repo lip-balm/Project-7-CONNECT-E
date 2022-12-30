@@ -59,6 +59,10 @@ button {
     font-size: 18px;
   }
 
+#logo {
+    margin: 10px;
+  }
+
 img {
   max-width: 92%;
 }
