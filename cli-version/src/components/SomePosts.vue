@@ -404,6 +404,10 @@ button {
   .smallButton {
     margin: 10px;
   }
+
+  .commentorDetails {
+  margin: 0;
+  }
 }
 
 </style>
