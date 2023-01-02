@@ -66,7 +66,7 @@ button {
 
 @media all and (max-width: 480px) {
   .allTheButtons {
-    gap: 18px;
+    gap: 0px;
   }
 
 }

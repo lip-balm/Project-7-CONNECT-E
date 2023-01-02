@@ -337,7 +337,8 @@ textarea {
 }
 
 .commentorDetails {
-  margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 @media all and (max-width: 480px) {
@@ -377,6 +378,10 @@ textarea {
 
 .smallButton {
   margin: 10px;
+}
+
+.commentAuthor {
+  margin-top: 13px;
 }
 
 }

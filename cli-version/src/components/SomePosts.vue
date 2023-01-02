@@ -24,7 +24,7 @@
         <button @click="addComment(post.postID)">Comment</button>
       </section>
       <section class="allComments"  v-for="comment in comments.filter(comment => comment.postID == post.postID)" :key="comment.commentID">
-      <section>
+      <section class="commentorDetails">
         <p class="commentAuthor">Employee ID {{ comment.employeeID }} commented: </p>
         <p class="commentDate"> {{ comment.date }} </p>
       </section>
@@ -262,15 +262,25 @@ button {
   height: 100%;
 }
 
-.postAuthor, .postDate, .commentDate, .commentAuthor {
+.postAuthor, .postDate {
 //  color: #fd2d01;
   text-align: left;
-  margin: 8px 8px 6px 8px;
+  margin: 13px 8px 0px 8px;
 }
 
 .postDate, .commentDate {
   margin-top: 0px;
   font-size: 10px;
+}
+
+.commentDate, .commentAuthor {
+  text-align: left;
+  margin: 0px 8px 0px 8px;
+}
+
+.commentorDetails {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .postTitle {
@@ -384,6 +394,10 @@ button {
 
   .commentText {
     margin: 8px
+  }
+
+  .commentAuthor {
+    margin-top: 13px;
   }
 
   .smallButton {
