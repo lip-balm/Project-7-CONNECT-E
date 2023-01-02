@@ -81,6 +81,11 @@ button {
   background-color: #fcd4d2;
   margin: auto;
   margin-top: 20px;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #fd2d01;
+  }
 }
 
 #uploadForm {

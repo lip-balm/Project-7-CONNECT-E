@@ -97,6 +97,11 @@ button {
     border: none;
     border-width: 5px;
     background-color: #fcd4d2;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #fd2d01;
+  }
 }
 
 @media all and (max-width: 480px) {

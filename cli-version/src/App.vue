@@ -46,10 +46,11 @@ img {
 button {
   font-size: 15px;
   color: #000000;
-  margin: 10px
+  margin: 10px;
 
-  &active {
-    color: #fd2d01;
+  &:hover {
+    color: #ffffff;
+    background-color: #fd2d01;
   }
 }
 

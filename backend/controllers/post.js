@@ -75,5 +75,3 @@ exports.readPost = (req, res, next) => {
         res.status(201).json({message: 'Marked as read'});
     }
 )};
-
-// Does anyone have a favorite 

@@ -10,7 +10,7 @@ exports.signUp = (req, res, next) => {
             if (err) throw err;
             if (result.length === 1) {
                 return res.status(400).json({ error: "An account already exists for this employee ID!" });
-            } else {
+            } if (req.body.employeeID > 100000) {
                 bcrypt.hash(req.body.password, 10, function(err, hash) {
                     if (err) {
                         return next(err);
@@ -86,4 +86,6 @@ exports.deleteProfile = (req, res, next) => {
     })
 }
 
-// 100150 testing51 angela
+// 100150 testing51 angela i love dogs, baking, travel, and hiking
+// Does anyone have a favorite site or other way to keep up with industry news? Thank you!
+// Happy New Year :)

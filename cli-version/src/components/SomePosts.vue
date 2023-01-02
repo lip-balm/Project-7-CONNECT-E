@@ -64,6 +64,34 @@ export default {
   },
 
   methods: {
+    getAllPosts() {
+      fetch('http://localhost:3000/api/auth/forum', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
+      })
+    .then(res => res.json())
+    .then(data => this.posts = data)
+    .then(data => console.log('all posts', data))
+    .catch(err => console.log(err.message))
+    },
+
+    getAllComments(postID) {
+      fetch('http://localhost:3000/api/auth/forum/post/' + postID + '/allComments', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.$store.state.token,
+        },
+      })
+    .then(res => res.json())
+    .then(data => this.comments = data)
+    .then(data => console.log('all comments1', data))
+    .catch(err => console.log(err.message))
+    },
+
     getSomeonesPosts: function() {
       fetch('http://localhost:3000/api/auth/forum/post/' + this.wantedEmployeeID, {
         method: 'GET',
@@ -78,7 +106,7 @@ export default {
     .then(data => this.posts = data)
     .then(data => console.log('some posts', data))
     .catch(err => console.log(err.message))
-  },
+    },
 
     postDelete(postID) {
       console.log('checking for delete event', postID),
@@ -94,7 +122,7 @@ export default {
             })
         .then(res => res.json())
         .then(data => console.log(data),
-            this.getAllPosts(),
+            this.getSomeonesPosts(),
             alert('This post has been deleted.')) 
         .catch(error => {this.error = error;
                         console.log(error);
@@ -161,7 +189,7 @@ export default {
         })
            .then(response => response.json())
            .then(data => console.log(data),
-            this.getAllPosts(),
+            this.getSomeonesPosts(postID),
             )
            .then(json => json.data)
            .catch(error => {
@@ -192,6 +220,11 @@ button {
   background-color: #fcd4d2;
   margin: 10px;
   font-size: 13px;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #fd2d01;
+  }
 }
 
 .IDbox {

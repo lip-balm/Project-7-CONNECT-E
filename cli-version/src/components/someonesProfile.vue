@@ -72,6 +72,11 @@ button {
     border-radius: 50%;
     border: none;
     background-color: #fcd4d2;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #fd2d01;
+  }
 }
 
 .IDbox {

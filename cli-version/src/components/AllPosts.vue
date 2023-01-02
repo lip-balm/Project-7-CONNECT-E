@@ -277,6 +277,11 @@ button {
   background-color: #fcd4d2;
   margin: 10px;
   font-size: 13px;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #fd2d01;
+  }
 }
 
 .smallButton {

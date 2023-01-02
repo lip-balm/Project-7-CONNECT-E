@@ -21,6 +21,11 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+
+button:hover {
+    color: #ffffff;
+    background-color: #fd2d01;
+}
 
 </style>
