@@ -220,6 +220,10 @@ export default {
   height: 100%;
 }
 
+#allPostsShown {
+  padding-bottom: 90px
+}
+
 .postAuthor, .postDate {
 // color: #fd2d01;
   text-align: left;

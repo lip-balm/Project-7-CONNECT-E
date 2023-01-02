@@ -242,6 +242,7 @@ button {
   justify-content: space-around;
   flex-wrap: wrap;
   row-gap: 50px;
+  padding-bottom: 90px;
 }
 
 .read {
